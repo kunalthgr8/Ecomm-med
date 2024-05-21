@@ -10,7 +10,8 @@ export default {
       "logout-color": "#EE1B1B",
       "text-green": "#2DA95C",
       "nav-white": "white",
-      "back-color" :"#c2d1d6;"
+      "back-color" :"#c2d1d6;",
+      "heading-color": "gray"
     },
   },
   plugins: [],
