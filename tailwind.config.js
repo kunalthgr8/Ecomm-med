@@ -9,7 +9,8 @@ export default {
       "button-color": "#10847E",
       "logout-color": "#EE1B1B",
       "text-green": "#2DA95C",
-      "nav-white": "white"
+      "nav-white": "white",
+      "back-color" :"#c2d1d6;"
     },
   },
   plugins: [],
