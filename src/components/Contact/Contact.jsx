@@ -3,7 +3,7 @@ import { Input, Button } from "../index";
 function Contact() {
   return (
     <>
-      <div className="flex flex-col m-10 h-full gap-5">
+      <div className="flex flex-col w-full m-10 h-full gap-5">
         <div>
           <h1 className=" text-heading-color mt-2 text-4xl md:text-3xl sm:text-2xl font-bold ">
             Get In Touch

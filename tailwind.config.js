@@ -11,7 +11,10 @@ export default {
       "text-green": "#2DA95C",
       "nav-white": "white",
       "back-color" :"#c2d1d6;",
-      "heading-color": "gray"
+      "heading-color": "gray",
+      "ad-color" : "#026077",
+      "offer-active": "#d9d9d9,",
+      "black-heading": "#424242"
     },
   },
   plugins: [],

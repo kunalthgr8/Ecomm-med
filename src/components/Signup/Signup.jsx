@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Signup = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex bg-nav-color mt-20 h-2/3 w-2/3 rounded-xl justify-center m-10 text-center self-center border-t-2 border-text-green">
+    <div className="flex bg-nav-color mt-20 h-4/5 w-2/3 rounded-xl justify-center m-10 text-center self-center border-t-2 border-text-green">
       <div className="w-1/2 flex flex-col justify-center gap-7 m-5">
         <Logo width="200px" height="200px" />
         <h1 className="text-text-green mt-2 text-4xl md:text-3xl sm:text-2xl font-bold tracking-widest">

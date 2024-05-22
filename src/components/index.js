@@ -9,7 +9,17 @@ import OffersCard from "./Offers/OffersCard";
 import Searchbar from "./Searchbar/Searchbar";
 import SideBar from "./SideBar/SideBar";
 import Signup from "./Signup/Signup";
+import Advertise from "./Advertise/Advertise";
+import AdCard from "./Advertise/AdCard";
+import Home from "./Home/Home";
+import HomeCard from "./Home/HomeCard";
+import Card from "./Home/Card";
 export {
+  Card,
+  HomeCard,
+  Home,
+  AdCard,
+  Advertise,
   OffersCard,
   Offers,
   Header,
