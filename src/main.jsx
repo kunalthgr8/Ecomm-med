@@ -8,7 +8,7 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import { Login, Signup, Contact } from "./components/index.js";
+import { Login, Signup, Contact, Offers } from "./components/index.js";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/offers",
+        element: <Offers />,
       },
     ],
   },

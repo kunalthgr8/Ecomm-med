@@ -1,13 +1,17 @@
-import SideBar from "./SideBar/SideBar";
-import Logo from "./Logo/Logo";
-import Login from "./Login/Login";
-import Input from "./Input/Input";
 import Button from "./Button/Button";
-import Signup from "./Signup/Signup";
 import Contact from "./Contact/Contact";
-import Searchbar from "./Searchbar/Searchbar";
 import Header from "./Header/Header";
+import Input from "./Input/Input";
+import Login from "./Login/Login";
+import Logo from "./Logo/Logo";
+import Offers from "./Offers/Offers";
+import OffersCard from "./Offers/OffersCard";
+import Searchbar from "./Searchbar/Searchbar";
+import SideBar from "./SideBar/SideBar";
+import Signup from "./Signup/Signup";
 export {
+  OffersCard,
+  Offers,
   Header,
   Searchbar,
   Signup,
