@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const Searchbar = () => {
   const navigate = useNavigate();
   function search() {
-    navigate("medicine", { state: item });
+    navigate("/products");
     console.log(item);
   }
   const location = useLocation();

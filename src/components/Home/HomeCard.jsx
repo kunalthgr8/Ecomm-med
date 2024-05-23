@@ -35,11 +35,11 @@ function HomeCard() {
       item: Card,
     },
   ];
+
   let len = products.length;
   const gotoNextSlide = () => {
     console.log(currentIndex);
     setCurrentIndex((prevIdx) => (prevIdx === len - 1 ? 0 : prevIdx + 1));
-
   };
   const gotoPrevSlid = () => {
     console.log(currentIndex);
@@ -49,7 +49,7 @@ function HomeCard() {
     <>
       <div className="flex flex-col gap-10 m-5">
         <div>
-          <h1 className="text-black-heading text-2xl font-bold">
+          <h1 className="text-black-heading text-2xl font-bold ml-3">
             Trending Items
           </h1>
         </div>

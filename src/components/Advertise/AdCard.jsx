@@ -2,7 +2,7 @@ import React from "react";
 import Family from "../../assets/Family.svg";
 import { Link, NavLink } from "react-router-dom";
 
-const AdCard = () => {
+const AdCard = ({num}) => {
   return (
     <div className="flex justify-evenly items-center m-2 ml-0 bg-teal-800 text-white font-poppins w-full rounded-2xl shadow-lg border-2 border-text-green transition-transform duration-300 ease-in-out bg-ad-color">
       <div className="flex flex-col w-1/5 justify-start">
@@ -14,7 +14,7 @@ const AdCard = () => {
           <h1 className="text-3xl font-extrabold text-center w-4/5 text-nav-color">Flat 25% off on Aoushadhi</h1>
         </div>
         <div className="bg-green-600 p-2 rounded-lg text-sm cursor-pointer shadow-lg transition-transform duration-300 ease-in-out hover:scale-110 bg-text-green text-nav-white">
-          <NavLink to="/offers">See More Offers</NavLink>
+          <NavLink to="/offers">See More Offers {num}</NavLink>
         </div>
       </div>
       <div className="flex justify-center items-center">

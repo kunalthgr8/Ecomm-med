@@ -7,7 +7,7 @@ import { BiSolidOffer } from "react-icons/bi";
 import { MdOutlineContactSupport } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { BiLogIn } from "react-icons/bi";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const navItems = [
   { name: "Home", slug: "/", icon: IoHome, color: "text-nav-white" },
@@ -68,7 +68,9 @@ const SideBar = () => {
   return (
     <div className="h-full pt-7 p-4 flex flex-col bg-nav-color">
       <div className="mt-10 flex flex-col justify-center text-center gap-2">
-        <Logo width="100px" height="100px" />
+        <Link to="/">
+          <Logo width="100px" height="100px" />
+        </Link>
         <h1 className="text-text-green mt-2 text-4xl md:text-3xl sm:text-2xl font-bold tracking-widest">
           Aoushadhi
         </h1>

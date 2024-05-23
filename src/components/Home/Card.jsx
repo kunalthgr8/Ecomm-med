@@ -1,9 +1,9 @@
 import React from "react";
 import { Button } from "../index";
-function Card({num}) {
+function Card({num , className}) {
   return (
     <>
-      <div className="bg-nav-white w-full h-full rounded-lg">
+      <div className={`bg-nav-white w-full h-full rounded-lg ${className}`}>
         <div className="flex justify-center self-center">
           <img
             className="rounded-xl w-2/3"
