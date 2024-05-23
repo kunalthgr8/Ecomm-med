@@ -16,6 +16,7 @@ import {
   Home,
   Products,
   Cart,
+  User,
 } from "./components/index.js";
 
 const router = createBrowserRouter([
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/user",
+        element: <User />,
       },
     ],
   },

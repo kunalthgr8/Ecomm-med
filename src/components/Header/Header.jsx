@@ -1,6 +1,7 @@
 import React from "react";
 import Searchbar from "../Searchbar/Searchbar";
-import Man from "../../assets/man.png"
+import Man from "../../assets/man.png";
+import { Link } from "react-router-dom";
 
 function Header() {
   const isAuthenticated = false;
@@ -10,14 +11,11 @@ function Header() {
         <Searchbar />
       </div>
       <div className="flex flex-col justify-center text-center self-center">
-        <img
-          width="48"
-          height="48"
-          src={Man}
-          alt="user"
-        />
-        {isAuthenticated && <p>Name</p>}
-        {!isAuthenticated && <button>User</button>}
+        <Link to="/user">
+          <img width="48" height="48" src={Man} alt="user" />
+          {isAuthenticated && <p>Name</p>}
+          {!isAuthenticated && <button>User</button>}
+        </Link>
       </div>
     </div>
   );
