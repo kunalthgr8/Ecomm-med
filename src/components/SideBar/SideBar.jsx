@@ -8,6 +8,9 @@ import { MdOutlineContactSupport } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { BiLogIn } from "react-icons/bi";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../store/auth/authSlice";
+import authService from "../../appwrite/auth";
 
 const navItems = [
   { name: "Home", slug: "/", icon: IoHome, color: "text-nav-white" },
@@ -62,9 +65,15 @@ const NavItem = ({ item, isActive, onClick }) => (
 
 const SideBar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
-  const authStatus = false; // This should be dynamically set based on actual authentication status
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
+  const logoutHandler = async () => {
+    authService.logout().then(() => {
+      dispatch(logout());
+    });
+  };
   return (
     <div className="h-full pt-7 p-4 flex flex-col bg-nav-color">
       <div className="mt-10 flex flex-col justify-center text-center gap-2">
@@ -77,16 +86,21 @@ const SideBar = () => {
       </div>
       <div>
         <ul className="mt-10 p-4">
-          {navItems.map((item) =>
-            item.requiresAuth === undefined ||
-            item.requiresAuth === authStatus ? (
-              <NavItem
-                key={item.slug}
-                item={item}
-                isActive={location.pathname === item.slug}
-                onClick={() => navigate(item.slug)}
-              />
-            ) : null
+          {navItems.map(
+            (item) =>
+              (item.requiresAuth === undefined ||
+                item.requiresAuth === isAuthenticated /*|| item.requiresAuth === !isAuthenticated */) && (
+                <NavItem
+                  key={item.slug}
+                  item={item}
+                  isActive={location.pathname === item.slug}
+                  onClick={
+                    item.name === "Logout"
+                      ? logoutHandler
+                      : () => navigate(item.slug)
+                  }
+                />
+              )
           )}
         </ul>
       </div>

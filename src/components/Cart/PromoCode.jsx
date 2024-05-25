@@ -11,7 +11,7 @@ function PromoCode() {
         <div className="flex flex-row justify-between mt-4">
           <Input
             type="text"
-            className="w-2/3 h-12 text-sm border-2 border-nav-color rounded-none rounded-l-lg px-4"
+            className="w-2/3 h-12 text-sm border-2 border-nav-color rounded-none rounded-l-lg rounded-r-none px-4"
             placeholder="Enter Promo Code"
           ></Input>
 

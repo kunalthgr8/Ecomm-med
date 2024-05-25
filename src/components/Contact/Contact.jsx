@@ -1,6 +1,10 @@
 import React from "react";
 import { Input, Button } from "../index";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 function Contact() {
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   return (
     <>
       <div className="flex flex-col w-full m-10 h-full gap-5">
@@ -27,10 +31,18 @@ function Contact() {
                 className=" border-nav-color h-20"
                 label="write your message"
               />
-              <Button className="bg-text-green text-nav-white rounded-lg transition-transform duration-400 ease-out hover:ease-in transform hover:scale-110">
+              {isAuthenticated ? (
+                <Button className="bg-text-green text-nav-white rounded-lg transition-transform duration-400 ease-out hover:ease-in transform hover:scale-110">
                 {" "}
                 Submit
               </Button>
+              ):(
+                <Button onClick={() => navigate("/login")} className="bg-text-green text-nav-white rounded-lg transition-transform duration-400 ease-out hover:ease-in transform hover:scale-110">
+                {" "}
+                Login
+              </Button>
+              )}
+              
             </div>
           </div>
         </div>
