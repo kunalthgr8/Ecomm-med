@@ -14,13 +14,14 @@ export class AuthService {
 
   async createAccount({ username, email, password }) {
     try {
+      console.log("AuthService :: createAccount 111111111 :: data", { username, email, password })
       const userAccount = await this.account.create(
         ID.unique(),
         email,
         password,
-        username
+        username,
       );
-
+      console.log("AuthService :: createAccount  222222222222:: data", { username, email, password })
       if (userAccount) {
         return this.login({ email, password });
       } else {
