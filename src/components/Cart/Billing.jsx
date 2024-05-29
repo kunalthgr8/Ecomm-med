@@ -37,7 +37,7 @@ function Billing() {
               <h1 className="text-base font-semibold text-nav-color">$10</h1>
               <h1 className="text-base font-semibold text-nav-color">$10</h1>
               <h1 className="text-base font-semibold text-text-green mt-4">
-                $100
+                ${total}
               </h1>
             </div>
           </div>
