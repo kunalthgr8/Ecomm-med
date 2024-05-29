@@ -21,7 +21,9 @@ import Cart from "./Cart/Cart";
 import CartCard from "./Cart/CartCard";
 import Billing from "./Cart/Billing";
 import User from "./User/User";
+import Loader from "./Loader/Loder"
 export {
+  Loader,
   User,
   Billing,
   CartCard,

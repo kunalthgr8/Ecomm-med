@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, Button } from "../index";
+import { Input, Button, Loader } from "../index";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 function Contact() {
