@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { Button } from "../index";
 import Offer from "../../assets/offer.jpg";
 
-function OffersCard() {
+function OffersCard({code, imageSrc, description, validity}) {
   const [copiedClass, setCopiedClass] = useState("bg-text-green");
   const [copyText, setCopyText] = useState("Copy Code");
 
@@ -27,12 +27,12 @@ function OffersCard() {
   return (
     <div className="w-[350px] flex flex-col self-center p-2 rounded-lg cursor-pointer bg-nav-white">
       <div className="rounded-lg">
-        <img className="w-50 rounded-lg" src={Offer} alt="OffersCard" />
+        <img className="w-50 rounded-lg" src={imageSrc} alt="OffersCard" />
       </div>
       <div className="flex flex-col">
         <div className="flex justify-between text-center p-2 mt-2 px-4">
           <h2 className="flex justify-end text-end align-bottom text-nav-color font-semibold text-xl">
-            BIG20
+            {code}
           </h2>
           <Button
             title={copyText}
@@ -44,14 +44,10 @@ function OffersCard() {
           </Button>
         </div>
         <div className="text-sm p-2 px-3 font-medium font-sans border-b-2 border-nav-active">
-          Today only! Get Flat 20% OFF* (max. discount: Rs. 2000) on PrePaid/COD
-          medicine orders & 100% NMS SuperCash* (max. cashback: Rs. 1000) on
-          ‘PrePaid’ medicine orders. *Minimum order (along with ANY other
-          products) required: Rs 1499. Also get 20% OFF on lab tests (Minimum
-          Order Value: Rs. 1000) *T&..
+          {description}
         </div>
         <div className="p-2 text-text-green font-semibold tracking-widest font-serif">
-          <p>Valid till: 31 Dec 2021</p>
+          <p>Valid till: {validity}</p>
         </div>
       </div>
     </div>

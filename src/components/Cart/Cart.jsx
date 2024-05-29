@@ -1,5 +1,5 @@
 import React from "react";
-import { Billing, CartCard, PromoCode } from "../index";
+import { Billing, CartCard } from "../index";
 import { useSelector} from "react-redux";
 
 
@@ -24,9 +24,6 @@ function Cart() {
         )}
       </div>
       <div className="flex flex-col pt-4 w-1/3">
-        <div>
-          <PromoCode />
-        </div>
         <div>
           <Billing />
         </div>

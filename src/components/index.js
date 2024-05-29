@@ -20,11 +20,9 @@ import Filter from "./Products/Filter";
 import Cart from "./Cart/Cart";
 import CartCard from "./Cart/CartCard";
 import Billing from "./Cart/Billing";
-import PromoCode from "./Cart/PromoCode";
 import User from "./User/User";
 export {
   User,
-  PromoCode,
   Billing,
   CartCard,
   Cart,
