@@ -5,6 +5,11 @@ import { useNavigate } from "react-router-dom";
 function Billing() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const navigate = useNavigate();
+  const cart = useSelector((state) => state.cart);
+  const total = cart.reduce(
+    (acc, item) => acc + item.product.price * item.qty,
+    0
+  ).toFixed(2);
   return (
     <>
       <div>
@@ -14,9 +19,7 @@ function Billing() {
           </h1>
           <div className="flex flex-row justify-between mt-4">
             <div className="flex flex-col gap-2">
-              <h1 className="text-base font-semibold text-nav-color">
-                Subtotal
-              </h1>
+              <h1 className="text-base font-semibold text-nav-color">Total</h1>
               <h1 className="text-base font-semibold text-nav-color">
                 Shipping
               </h1>
@@ -28,7 +31,9 @@ function Billing() {
               </h1>
             </div>
             <div className="flex flex-col gap-2">
-              <h1 className="text-base font-semibold text-nav-color">$100</h1>
+              <h1 className="text-base font-semibold text-nav-color">
+                ${total}
+              </h1>
               <h1 className="text-base font-semibold text-nav-color">$10</h1>
               <h1 className="text-base font-semibold text-nav-color">$10</h1>
               <h1 className="text-base font-semibold text-text-green mt-4">
@@ -36,18 +41,18 @@ function Billing() {
               </h1>
             </div>
           </div>
-          {
-            isAuthenticated ? (
-              <button className="bg-button-color text-nav-white font-semibold px-4 py-2 rounded-lg mt-4 transition duration-400 ease-out hover:ease-in transform hover:scale-110">
-            Proceed to Checkout
-          </button>
-            ) : (
-              <button onClick={()=> navigate("/login")} className="bg-button-color text-nav-white font-semibold px-4 py-2 rounded-lg mt-4 transition duration-400 ease-out hover:ease-in transform hover:scale-110">
-            Login 
-          </button>
-            )
-          }
-          
+          {isAuthenticated ? (
+            <button className="bg-button-color text-nav-white font-semibold px-4 py-2 rounded-lg mt-4 transition duration-400 ease-out hover:ease-in transform hover:scale-110">
+              Proceed to Checkout
+            </button>
+          ) : (
+            <button
+              onClick={() => navigate("/login")}
+              className="bg-button-color text-nav-white font-semibold px-4 py-2 rounded-lg mt-4 transition duration-400 ease-out hover:ease-in transform hover:scale-110"
+            >
+              Login
+            </button>
+          )}
         </div>
       </div>
     </>

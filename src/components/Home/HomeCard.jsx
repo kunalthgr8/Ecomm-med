@@ -1,40 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "../index";
 function HomeCard() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const products = [
-    {
-      item: Card,
-    },
-    {
-      item: Card,
-    },
-    {
-      item: Card,
-    },
-    {
-      item: Card,
-    },
-    {
-      item: Card,
-    },
-    {
-      item: Card,
-    },
-    {
-      item: Card,
-    },
-    {
-      item: Card,
-    },
-    {
-      item: Card,
-    },
-    {
-      item: Card,
-    },
-  ];
+  const [products, setProducts] = useState([]);
 
   let len = products.length;
   const gotoNextSlide = () => {
@@ -45,6 +14,22 @@ function HomeCard() {
     console.log(currentIndex);
     setCurrentIndex((prevIdx) => (prevIdx === 0 ? len - 1 : prevIdx - 1));
   };
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("https://fakestoreapi.com/products");
+        if (!res.ok) {
+          throw new Error("Failed to fetch products");
+        }
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchProducts();
+  }, []);
+
   return (
     <>
       <div className="flex flex-col gap-10 m-5">
@@ -55,7 +40,7 @@ function HomeCard() {
         </div>
         <div className="relative w-full mx-auto">
           <div className="slider flex overflow-hidden items-center justify-center gap-4 ">
-            {products
+            {/* {products
 
               .map((product, index) => {
                 return (
@@ -67,6 +52,19 @@ function HomeCard() {
                   </div>
                 );
               })
+              .slice(currentIndex, currentIndex + 4)} */}
+            {products
+              .map((product, index) => (
+                <div
+                  key={index}
+                  className="slider flex-shrink-0 justify-center items-center w-[200px] h-[270px]"
+                >
+                  <Card
+                    prod={product}
+                    className="border-2 border-nav-color hover:border-2 hover:border-text-green cursor-pointer"
+                  />
+                </div>
+              ))
               .slice(currentIndex, currentIndex + 4)}
           </div>
           <button
