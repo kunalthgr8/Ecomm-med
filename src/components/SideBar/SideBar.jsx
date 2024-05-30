@@ -45,8 +45,8 @@ const SideBar = () => {
   }, [dispatch]);
 
   return (
-    <div className="h-full pt-7 p-4 flex flex-col bg-nav-color">
-      <div className="mt-10 flex flex-col justify-center text-center gap-2">
+    <div className="h-full pt-5 p-4 flex flex-col bg-nav-color">
+      <div className="mt-8 flex flex-col justify-center text-center gap-2">
         <Link to="/">
           <Logo width="100px" height="100px" />
         </Link>
@@ -54,7 +54,7 @@ const SideBar = () => {
           Aoushadhi
         </h1>
       </div>
-      <ul className="mt-10 p-4">
+      <ul className="mt-8 p-4">
         {navItems.map((item) => {
           const { slug, name, requiresAuth } = item;
           const isVisible = requiresAuth === undefined || requiresAuth === isAuthenticated || requiresAuth === !isAuthenticated;
@@ -74,7 +74,7 @@ const SideBar = () => {
           );
         })}
       </ul>
-      <div className="mt-10 p-4 border-t-2 border-text-green">
+      <div className="mt-8 p-4 border-t-2 border-text-green">
         <div className="flex justify-center text-center text-nav-white text-base">
           &copy; {new Date().getFullYear()} Acquired By @KunalSingla
         </div>
