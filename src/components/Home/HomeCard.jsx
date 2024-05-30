@@ -1,35 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "../index";
-import {Loader} from "../index"; // Ensure Loader is imported
+import { Loader } from "../index";
+import { fetchProducts } from "../../store/product/productSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { STATUSES } from "../../store/product/productSlice";
 
 function HomeCard() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [products, setProducts] = useState([]);
-
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.product.data);
+  const status = useSelector((state) => state.product.status);
   const len = products.length;
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const gotoNextSlide = () => {
     setCurrentIndex((prevIdx) => (prevIdx === len - 4 ? 0 : prevIdx + 1));
   };
-
   const gotoPrevSlide = () => {
     setCurrentIndex((prevIdx) => (prevIdx === 0 ? len - 4 : prevIdx - 1));
   };
-
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch("https://fakestoreapi.com/products");
-        if (!res.ok) {
-          throw new Error("Failed to fetch products");
-        }
-        const data = await res.json();
-        setProducts(data);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    fetchProducts();
+    dispatch(fetchProducts());
   }, []);
 
   return (
@@ -40,12 +30,12 @@ function HomeCard() {
             Trending Items
           </h1>
         </div>
-        {len === 0 && (
+        {status === STATUSES.LOADING && (
           <div className="flex justify-center self-center gap-10 w-full">
             <Loader />
           </div>
         )}
-        {len > 0 && (
+        {status === STATUSES.IDLE && (
           <div className="relative w-full mx-auto">
             <div className="slider flex overflow-hidden items-center justify-center gap-4 ">
               {products

@@ -50,7 +50,7 @@ function CartCard({ qty, product}) {
           </div>
           <div className="flex flex-row justify-between mt-4">
             <p className="text-lg text-black-color font-semibold">
-              {product.price * qty}
+              ${product.price * qty}
             </p>
             <div className="flex flex-row justify-center self-center bg-button-color text-nav-white font-semibold px-3 py-1 rounded-xl gap-2">
               <p className="text-2xl cursor-pointer" onClick={handleDecrement}>-</p>

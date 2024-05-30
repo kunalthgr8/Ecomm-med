@@ -69,7 +69,7 @@ function Billing() {
                 <h1 className="text-base font-semibold text-nav-color">
                   Shipping
                 </h1>
-                <h1 className="text-base font-semibold text-nav-color">
+                <h1 className="text-base font-semibold text-logout-color">
                   Discount
                 </h1>
                 <h1 className="text-base font-semibold text-text-green mt-4">
@@ -81,7 +81,7 @@ function Billing() {
                   ${total}
                 </h1>
                 <h1 className="text-base font-semibold text-nav-color">$10</h1>
-                <h1 className="text-base font-semibold text-nav-color">
+                <h1 className="text-base font-semibold text-logout-color">
                   ${((total * discount) / 100).toFixed(2)}
                 </h1>
                 <h1 className="text-base font-semibold text-text-green mt-4">

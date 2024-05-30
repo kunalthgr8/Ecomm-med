@@ -1,35 +1,34 @@
-import React, { useEffect, useState } from "react";
+// Products.jsx
+import React, { useEffect } from "react";
 import { Card, Filter, Loader } from "../index";
+import { fetchProducts, selectFilteredProducts, STATUSES } from "../../store/product/productSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function Products() {
-  // const cards = Array(20).fill(null); // Array to hold the number of cards
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const products = useSelector(selectFilteredProducts);
+  const status = useSelector(state => state.product.status);
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      const res = await fetch("https://fakestoreapi.com/products");
-      const data = await res.json();
-      console.log(data);
-      setProducts(data);
-    };
-    fetchProducts();
-  }, []);
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   return (
     <div className="flex w-full h-full mt-10">
       <div className="w-4/5 flex flex-wrap gap-2 m-10">
         <div className="w-full">
-          {products.length === 0 && (
+          {status === STATUSES.LOADING && (
             <div className="flex justify-center self-center gap-10 w-full">
               <Loader />
             </div>
           )}
-          {products.length > 0 && (
+          {status === STATUSES.ERROR && (
+            <div className="flex justify-center self-center gap-10 w-full">
+              <h1>Something went Wrong !!</h1>
+            </div>
+          )}
+          {status === STATUSES.IDLE && (
             <div className="flex flex-row flex-wrap justify-center self-center gap-10 w-full">
-              {/* {cards.map((_, index) => (
-              <div key={index} className="w-[230px] h-[285px]">
-                <Card className="border-2 border-nav-color hover:border-2 hover:border-text-green cursor-pointer" />
-              </div>
-            ))} */}
               {products.map((product) => (
                 <div key={product.id} className="w-[230px] h-[285px]">
                   <Card
