@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Input } from "../index";
+import { Input,Steper } from "../index";
 import { Link } from "react-router-dom";
 
 
@@ -90,7 +90,9 @@ function Billing() {
               </div>
             </div>
             {isAuthenticated ? (
-              <button className="bg-button-color text-nav-white font-semibold px-4 py-2 rounded-lg mt-4 transition duration-400 ease-out hover:ease-in transform hover:scale-110">
+              <button
+              onClick={() => navigate("/stepper")}
+              className="bg-button-color text-nav-white font-semibold px-4 py-2 rounded-lg mt-4 transition duration-400 ease-out hover:ease-in transform hover:scale-110">
                 Proceed to Checkout
               </button>
             ) : (

@@ -21,8 +21,10 @@ import Cart from "./Cart/Cart";
 import CartCard from "./Cart/CartCard";
 import Billing from "./Cart/Billing";
 import User from "./User/User";
-import Loader from "./Loader/Loder"
+import Loader from "./Loader/Loder";
+import Steper from "./Steper/Stepper"
 export {
+  Steper,
   Loader,
   User,
   Billing,

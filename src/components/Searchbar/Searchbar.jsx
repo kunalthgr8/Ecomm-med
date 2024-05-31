@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { IoSearchSharp } from "react-icons/io5";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector} from "react-redux";
+import { selectFilteredProducts } from "../../store/product/productSlice";
+
 
 const Searchbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   function search() {
     navigate("/products");
     console.log(item);

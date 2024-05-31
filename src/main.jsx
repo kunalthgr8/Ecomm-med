@@ -19,6 +19,7 @@ import {
   Products,
   Cart,
   User,
+  Steper
 } from "./components/index.js";
 
 const router = createBrowserRouter([
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
         path: "/user",
         element: <User />,
       },
+      {
+        path: "/stepper",
+        element: <Steper />,
+      }
     ],
   },
 ]);
