@@ -13,13 +13,14 @@ const Signup = () => {
     username: "",
     email: "",
     password: "",
+    phoneNumber: "",
   });
   const [error, setError] = React.useState("");
 
   const create = async (e) => {
     e.preventDefault();
     setError("");
-    if (data.username === "" || data.email === "" || data.password === "")
+    if (data.username === "" || data.email === "" || data.password === ""|| data.phoneNumber === "")
       return setError("Please fill all the fields");
     try {
       const user = await authService.createAccount(data);
@@ -62,6 +63,13 @@ const Signup = () => {
             placeholder="Email"
             onChange={(e) =>
               setData((prev) => ({ ...prev, email: e.target.value }))
+            }
+          />
+          <Input
+            type="number"
+            placeholder="Mobile Number"
+            onChange={(e) =>
+              setData((prev) => ({ ...prev, phoneNumber: e.target.value }))
             }
           />
           <Input

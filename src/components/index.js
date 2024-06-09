@@ -22,8 +22,13 @@ import CartCard from "./Cart/CartCard";
 import Billing from "./Cart/Billing";
 import User from "./User/User";
 import Loader from "./Loader/Loder";
-import Steper from "./Steper/Stepper"
+import Steper from "./Steper/Stepper";
+import ChangePassword from "./ChangePassword/ChangePassword";
+import AuthLayout from "./AuthLayout.jsx";
+
 export {
+  AuthLayout,
+  ChangePassword,
   Steper,
   Loader,
   User,

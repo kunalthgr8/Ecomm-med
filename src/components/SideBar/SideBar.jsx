@@ -58,7 +58,7 @@ const SideBar = () => {
       <ul className="mt-8 p-4">
         {navItems.map((item) => {
           const { slug, name, requiresAuth } = item;
-          const isVisible = requiresAuth === undefined || requiresAuth === isAuthenticated || requiresAuth === !isAuthenticated;
+          const isVisible = requiresAuth === undefined || requiresAuth === isAuthenticated;
           const isActive = location.pathname === slug;
           const onClick = name === "Logout" ? logoutHandler : () => navigate(slug);
 

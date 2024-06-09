@@ -13,7 +13,8 @@ export class AuthService {
     this.account = new Account(this.client);
   }
 
-  async createAccount({ username, email, password }) {
+  async createAccount({ username, email, password,phoneNumber
+   }) {
     try {
       // Code for Appwrite backend
 
@@ -38,6 +39,7 @@ export class AuthService {
           username,
           email,
           password,
+          phoneNumber,
         }
       );
       if (response.data.statusCode === 201) {
@@ -127,6 +129,33 @@ export class AuthService {
       return response;
     } catch (error) {
       console.log("Appwrite serive :: logout :: error", error);
+    }
+  }
+
+  async changePassword({ oldPassword, newPassword }) {
+    try {
+      // Code for Appwrite backend
+
+      // return await this.account.updateEmail(email);
+
+      // Code for my own backend
+
+      const accessToken = Cookies.get("accessToken");
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/users/changePassword",
+        {
+          oldPassword,
+          newPassword,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      return response;
+    } catch (error) {
+      console.log("Appwrite serive :: changePassword :: error", error);
     }
   }
 }

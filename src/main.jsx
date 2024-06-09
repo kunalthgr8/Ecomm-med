@@ -19,7 +19,9 @@ import {
   Products,
   Cart,
   User,
-  Steper
+  Steper,
+  ChangePassword,
+  AuthLayout,
 } from "./components/index.js";
 
 const router = createBrowserRouter([
@@ -33,11 +35,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login />,
+        element: (
+          <AuthLayout authentication={false}>
+            <Login />
+          </AuthLayout>
+        ),
       },
       {
         path: "/signup",
-        element: <Signup />,
+        element: (
+          <AuthLayout authentication={false}>
+            <Signup />
+          </AuthLayout>
+        ),
       },
       {
         path: "/contact",
@@ -62,7 +72,15 @@ const router = createBrowserRouter([
       {
         path: "/stepper",
         element: <Steper />,
-      }
+      },
+      {
+        path: "/changePassword",
+        element: (
+          <AuthLayout authentication={true}>
+            <ChangePassword />
+          </AuthLayout>
+        ),
+      },
     ],
   },
 ]);

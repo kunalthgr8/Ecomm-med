@@ -9,9 +9,9 @@ function User() {
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const userData = useSelector((state) => state.auth.userData);
-  const userName = userData?.name || "User";
+  const userName = userData?.username || "User";
   const userEmail = userData?.email || "user@gmail.com";
-  const userNumber = userData?.phone || "79732-03702";
+  const userNumber = userData?.phoneNumber || "79732-03702";
 
   return (
     <div className="flex flex-row w-full justify-center m-10 gap-10">
@@ -26,9 +26,10 @@ function User() {
                 {userName}
               </h1>
               <p className="text-black-heading text-sm italic">{userEmail}</p>
-              <p className="text-black-heading text-sm italic font-serif">
+              {/* <p className="text-black-heading text-sm italic font-serif">
                 +91 {userNumber}
-              </p>
+              </p> */}
+              <p className="text-nav-color font-semibold cursor-pointer text-sm italic" onClick={() => navigate("/changePassword")}>Change Password</p>
             </div>
           </div>
           <div className="flex flex-col gap-5 w-2/3">
