@@ -40,7 +40,8 @@ const SideBar = () => {
   const totalItemsInCart = useSelector((state) => state.cart.length);
 
   const logoutHandler = useCallback(async () => {
-    await authService.logout();
+    const response = await authService.logout();
+    console.log("SideBar :: logoutHandler :: response", response);
     dispatch(logout());
   }, [dispatch]);
 

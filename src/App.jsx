@@ -2,9 +2,19 @@ import "./App.css";
 import React from "react";
 import { Header, SideBar } from "./components";
 import { Outlet } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "./store/auth/authSlice.js";
 
 function App() {
   const authStatus = false;
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    const storedAuthData = localStorage.getItem("userData");
+    if (storedAuthData) {
+      dispatch(login(JSON.parse(storedAuthData)));
+    }
+  }, [dispatch]);
+
   document.body.style.overflow = "hidden";
   return (
     <div className="flex h-screen">

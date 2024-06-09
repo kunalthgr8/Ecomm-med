@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 function Header() {
   
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const name = useSelector((state) => state.auth.userData?.name)
+  const name = useSelector((state) => state.auth.userData?.username)
   return (
     <div className="flex w-full justify-evenly mt-4 ">
       <div className="w-2/3 justify-center text-center self-center">

@@ -1,6 +1,7 @@
 import conf from "../conf/conf.js";
 import { Client, Account, ID } from "appwrite";
 import axios from "axios";
+import Cookies from "js-cookie";
 export class AuthService {
   client = new Client();
   account;
@@ -14,43 +15,38 @@ export class AuthService {
 
   async createAccount({ username, email, password }) {
     try {
-      console.log("AuthService :: createAccount 111111111 :: data", {
-        username,
-        email,
-        password,
-      });
-      const userAccount = await this.account.create(
-        ID.unique(),
-        email,
-        password,
-        username
-      );
-      console.log("AuthService :: createAccount  222222222222:: data", {
-        username,
-        email,
-        password,
-      });
-      if (userAccount) {
-        return this.login({ email, password });
-      } else {
-        return userAccount;
-      }
-      // const response = await axios.post(
-      //   "http://localhost:8000/api/v1/users/register",
-      //   {
-      //     fullname: "Kunal Sing",
-      //     username,
-      //     email,
-      //     password,
-      //   }
-      // );
+      // Code for Appwrite backend
 
-      // if (response.status === 201) {
-      //   // If registration is successful, log in the user
+      // const userAccount = await this.account.create(
+      //   ID.unique(),
+      //   email,
+      //   password,
+      //   username
+      // );
+      // if (userAccount) {
       //   return this.login({ email, password });
       // } else {
-      //   throw new Error("User registration failed");
+      //   return userAccount;
       // }
+
+      //  Code for my own backend
+
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/users/register",
+        {
+          fullname: "Kunal Sing",
+          username,
+          email,
+          password,
+        }
+      );
+      if (response.data.statusCode === 201) {
+        // If registration is successful, log in the user
+        const rsp2 = await this.login({ email, password });
+        return rsp2;
+      } else {
+        throw new Error("User registration failed");
+      }
     } catch (error) {
       throw error;
     }
@@ -58,23 +54,48 @@ export class AuthService {
 
   async login({ email, password }) {
     try {
-      return await this.account.createEmailPasswordSession(email, password);
-      // const response = await axios.post(
-      //   "http://localhost:8000/api/v1/users/login",
-      //   {
-      //     email,
-      //     password,
-      //   }
-      // );
-      // return response;
+      // Code for Appwrite backend
+
+      // return await this.account.createEmailPasswordSession(email, password);
+
+      // Code for my own backend
+
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/users/login",
+        {
+          email,
+          password,
+        }
+      );
+      const { accessToken, refreshToken } = response.data.data;
+      Cookies.set("accessToken", accessToken);
+      Cookies.set("refreshToken", refreshToken);
+      return response;
     } catch (error) {
+      console.log("Appwrite serive :: login :: error", error);
       throw error;
     }
   }
 
   async getCurrentUser() {
     try {
-      return await this.account.get();
+      // Code for Appwrite backend
+
+      // return await this.account.get();
+
+      // Code for my own backend
+
+      const accessToken = Cookies.get("accessToken");
+      const response = await axios.get(
+        "http://localhost:8000/api/v1/users/me",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      return response;
     } catch (error) {
       console.log("Appwrite serive :: getCurrentUser :: error", error);
     }
@@ -84,11 +105,26 @@ export class AuthService {
 
   async logout() {
     try {
-      await this.account.deleteSessions();
-      // const response = await axios.post(
-      //   "http://localhost:8000/api/v1/users/logout"
-      // );
-      // return response;
+      // Code for Appwrite backend
+
+      // await this.account.deleteSessions();
+
+      // Code for my own backend
+
+      const refreshToken = Cookies.get("refreshToken");
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/users/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${refreshToken}`,
+          },
+        }
+      );
+      localStorage.removeItem("userData");
+      Cookies.remove("accessToken");
+      Cookies.remove("refreshToken");
+      return response;
     } catch (error) {
       console.log("Appwrite serive :: logout :: error", error);
     }

@@ -26,7 +26,8 @@ const Signup = () => {
       if (user) {
         const userData = await authService.getCurrentUser();
         if (userData) {
-          dispatch(login(userData));
+          localStorage.setItem("userData", JSON.stringify(userData.data.data));
+          dispatch(login(userData.data.data));
           navigate("/");
         }
       }

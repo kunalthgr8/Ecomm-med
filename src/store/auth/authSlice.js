@@ -5,6 +5,12 @@ const initialState = {
   userData: null
 };
 
+const storedAuthData = localStorage.getItem("userData");
+if (storedAuthData) {
+  initialState.isAuthenticated = true;
+  initialState.userData = JSON.parse(storedAuthData);
+}
+
 const authSlice = createSlice({
   name: "auth",
   initialState,

@@ -21,7 +21,8 @@ const Login = () => {
       const session = await authService.login(data);
       if (session) {
         const userData = await authService.getCurrentUser();
-        dispatch(authLogin(userData));
+        localStorage.setItem("userData", JSON.stringify(userData.data.data));
+        dispatch(authLogin(userData.data.data));
         navigate("/");
       }
     } catch (error) {
