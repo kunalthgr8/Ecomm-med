@@ -10,7 +10,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setData] = React.useState({
-    username: "",
+    fullname: "",
     email: "",
     password: "",
     phoneNumber: "",
@@ -20,7 +20,7 @@ const Signup = () => {
   const create = async (e) => {
     e.preventDefault();
     setError("");
-    if (data.username === "" || data.email === "" || data.password === ""|| data.phoneNumber === "")
+    if (data.fullname === "" || data.email === "" || data.password === ""|| data.phoneNumber === "")
       return setError("Please fill all the fields");
     try {
       const user = await authService.createAccount(data);
@@ -53,9 +53,9 @@ const Signup = () => {
         <form onSubmit={create} className="p-2 flex flex-col gap-3 pt-0 pb-0">
           <Input
             type="text"
-            placeholder="Username"
+            placeholder="fullname"
             onChange={(e) =>
-              setData((prev) => ({ ...prev, username: e.target.value }))
+              setData((prev) => ({ ...prev, fullname: e.target.value }))
             }
           />
           <Input

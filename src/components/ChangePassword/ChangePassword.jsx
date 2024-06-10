@@ -13,17 +13,35 @@ function ChangePassword() {
     newPassword: "",
     confirmPassword: "",
   });
+  const [error, setError] = React.useState("");
 
   const handleSubmit = async () => {
+    if (
+      data.oldPassword === "" ||
+      data.newPassword === "" ||
+      data.confirmPassword === ""
+    ) {
+      setTimeout(() => {
+        setError("Please fill all the fields");
+      }, 1000);
+      setError("");
+      return;
+    }
     if (data.newPassword !== data.confirmPassword) {
-      alert("Passwords do not match");
+      setTimeout(() => {
+        setError("Password does not match");
+      }, 1000);
+      setError("");
       return;
     }
     const resp = await authService.changePassword(data);
     if (resp.data.statusCode === 200) {
       navigate("/user");
     } else {
-      alert("Something went wrong");
+      setTimeout(() => {
+        setError("Something went wrong! Please try again.");
+      }, 1000);
+      setError("");
     }
     console.log(resp);
   };
@@ -32,13 +50,14 @@ function ChangePassword() {
     <>
       <div className="flex flex-row w-full justify-center m-10 gap-10">
         <div className="flex flex-col gap-5 w-2/3">
-        <h1>Change Password</h1>
+          <h1>Change Password</h1>
           <div className="flex flex-col w-4/5 justify-center bg-nav-white rounded-lg p-8 pb-4">
             <div className="w-full flex flex-row">
               <div className="flex flex-col w-full gap-3">
                 <h1 className="text-sm text-heading-color font-semibold">
                   Change Password
                 </h1>
+                <h1 className="text-logout-color">{error}</h1>
                 <div className="flex flex-col p-3 gap-2">
                   <div className="flex flex-col pb-3 gap-1">
                     <p className="text-sm font-medium text-button-color">

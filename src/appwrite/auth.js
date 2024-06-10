@@ -13,8 +13,7 @@ export class AuthService {
     this.account = new Account(this.client);
   }
 
-  async createAccount({ username, email, password,phoneNumber
-   }) {
+  async createAccount({ fullname, email, password, phoneNumber }) {
     try {
       // Code for Appwrite backend
 
@@ -22,7 +21,7 @@ export class AuthService {
       //   ID.unique(),
       //   email,
       //   password,
-      //   username
+      //   fullname
       // );
       // if (userAccount) {
       //   return this.login({ email, password });
@@ -35,8 +34,7 @@ export class AuthService {
       const response = await axios.post(
         "http://localhost:8000/api/v1/users/register",
         {
-          fullname: "Kunal Sing",
-          username,
+          fullname,
           email,
           password,
           phoneNumber,
@@ -69,6 +67,7 @@ export class AuthService {
           password,
         }
       );
+      console.log("Appwrite serive :: login :: response", response);
       const { accessToken, refreshToken } = response.data.data;
       Cookies.set("accessToken", accessToken);
       Cookies.set("refreshToken", refreshToken);
@@ -156,6 +155,31 @@ export class AuthService {
       return response;
     } catch (error) {
       console.log("Appwrite serive :: changePassword :: error", error);
+    }
+  }
+
+  async changeUserDetails({ fullname, email, phoneNumber, gender }) {
+    try {
+      const accessToken = Cookies.get("accessToken");
+      console.log(" from authjs",fullname, email, phoneNumber,gender)
+      const response = await axios.put(
+        "http://localhost:8000/api/v1/users/updateUserDetails",
+        {
+          fullname,
+          email,
+          phoneNumber,
+          gender,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      return response;
+
+    } catch (error) {
+      console.log("Appwrite serive :: changeDetails :: error", error);
     }
   }
 }
