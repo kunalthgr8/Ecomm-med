@@ -71,7 +71,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/stepper",
-        element: <Steper />,
+        element: (
+          <AuthLayout authentication={true}>
+            <Steper />
+          </AuthLayout>
+        ),
       },
       {
         path: "/changePassword",
