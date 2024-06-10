@@ -6,19 +6,54 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import authService from "../../appwrite/auth";
 import { useDispatch } from "react-redux";
-import {login} from "../../store/auth/authSlice"
+import { login } from "../../store/auth/authSlice";
 function User() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const userData = useSelector((state) => state.auth.userData);
   const [editAbleUser, setEditAbleUser] = React.useState(false);
+  const [editAbleLocationUser, setEditAbleLocationUser] = React.useState(false);
   const [data, setData] = React.useState({
     email: userData?.email || "No Email Found",
     phoneNumber: userData?.phoneNumber || "No Number Found",
     fullname: userData?.fullname || "User Name Not Found",
     gender: userData?.gender || "Male",
   });
+  const [dataLocation, setDataLocation] = React.useState({
+    address: userData?.address || "Enter Your Address",
+    pincode: userData?.pincode || "Enter your Pincode",
+    district: userData?.district || "Enter your District",
+    city: userData?.city || "Enter your City",
+  });
+
+  const saveButtonLocationHandler = async () => {
+    if (
+      dataLocation.address.trim() === "" ||
+      dataLocation.pincode.trim() === "" ||
+      dataLocation.district.trim() === "" ||
+      dataLocation.city.trim() === ""
+    ) {
+      alert("Please fill all the fields");
+      return;
+    }
+    try {
+      const user = await authService.updateUserLocationDetails(dataLocation);
+      if (user) {
+        const userData = await authService.getCurrentUser();
+        console.log("User :: saveButtonHandler :: userData", userData);
+        if (userData) {
+          localStorage.setItem("userData", JSON.stringify(userData.data.data));
+          dispatch(login(userData.data.data));
+          setEditAbleLocationUser(false);
+        }
+      }
+    } catch (error) {
+      console.log("User :: saveButtonHandler :: error", error);
+      alert("Error while saving data");
+    }
+    // Save data logic here
+  };
 
   const saveButtonHandler = async () => {
     if (
@@ -52,6 +87,14 @@ function User() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleChange2 = (e) => {
+    const { name, value } = e.target;
+    setDataLocation((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -154,7 +197,7 @@ function User() {
                         />
                       ) : (
                         <p className="text-sm font-medium text-heading-color border-b border-text-heading">
-                          {data.fullname}
+                          {capitalizeName(data.fullname)}
                         </p>
                       )}
                     </div>
@@ -173,7 +216,7 @@ function User() {
                         />
                       ) : (
                         <p className="text-sm font-medium text-heading-color border-b border-text-heading">
-                          {data.gender}
+                          {capitalizeName(data.gender)}
                         </p>
                       )}
                     </div>
@@ -199,47 +242,91 @@ function User() {
               <div className="w-full flex flex-row">
                 <div className="flex flex-col w-1/2 gap-3">
                   <h1 className="text-sm text-heading-color font-semibold">
-                    ADDRESS INFORMATION
+                    ADDRESS INFORMATION{" "}
                   </h1>
                   <div className="flex flex-col p-3 gap-2">
                     <div className="flex flex-col pb-3 gap-1">
                       <p className="text-sm font-medium text-button-color">
                         ADDRESS
                       </p>
-                      <p className="text-sm font-medium text-heading-color border-b border-text-heading">
-                        HOUSE 296B
-                      </p>
+                      {editAbleLocationUser ? (
+                        <Input
+                          type="text"
+                          name="address"
+                          value={dataLocation.address}
+                          placeholder="Address"
+                          className="text-sm font-medium text-heading-color border-b border-text-heading"
+                          onChange={handleChange2}
+                        />
+                      ) : (
+                        <p className="text-sm font-medium text-heading-color border-b border-text-heading">
+                          {dataLocation.address}
+                        </p>
+                      )}
                     </div>
                     <div className="flex flex-col pb-3 gap-1">
                       <p className="text-sm font-medium text-button-color">
                         CITY
                       </p>
-                      <p className="text-sm font-medium text-heading-color border-b border-text-heading">
-                        DHURI
-                      </p>
+                      {editAbleLocationUser ? (
+                        <Input
+                          type="text"
+                          name="city"
+                          value={dataLocation.city}
+                          placeholder="City"
+                          className="text-sm font-medium text-heading-color border-b border-text-heading"
+                          onChange={handleChange2}
+                        />
+                      ) : (
+                        <p className="text-sm font-medium text-heading-color border-b border-text-heading">
+                          {capitalizeName(dataLocation.city)}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
                 <div className="flex flex-col w-1/2 gap-3">
                   <h1 className="text-sm text-heading-color font-semibold">
-                    LOCATION INFORMATION
+                    LOCATION INFORMATION{" "}
                   </h1>
                   <div className="flex flex-col p-3 gap-2">
                     <div className="flex flex-col pb-3 gap-1">
                       <p className="text-sm font-medium text-button-color">
                         PIN CODE
                       </p>
-                      <p className="text-sm font-medium text-heading-color border-b border-text-heading">
-                        148024
-                      </p>
+                      {editAbleLocationUser ? (
+                        <Input
+                          type="text"
+                          name="pincode"
+                          value={dataLocation.pincode}
+                          placeholder="PIN Code"
+                          className="text-sm font-medium text-heading-color border-b border-text-heading"
+                          onChange={handleChange2}
+                        />
+                      ) : (
+                        <p className="text-sm font-medium text-heading-color border-b border-text-heading">
+                          {dataLocation.pincode}
+                        </p>
+                      )}
                     </div>
                     <div className="flex flex-col pb-3 gap-1">
                       <p className="text-sm font-medium text-button-color">
                         DISTRICT
                       </p>
-                      <p className="text-sm font-medium text-heading-color border-b border-text-heading">
-                        SANGRUR
-                      </p>
+                      {editAbleLocationUser ? (
+                        <Input
+                          type="text"
+                          name="district"
+                          value={dataLocation.district}
+                          placeholder="District"
+                          className="text-sm font-medium text-heading-color border-b border-text-heading"
+                          onChange={handleChange2}
+                        />
+                      ) : (
+                        <p className="text-sm font-medium text-heading-color border-b border-text-heading">
+                          {capitalizeName(dataLocation.district)}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -248,9 +335,14 @@ function User() {
                 <Button
                   width="flex justify-end"
                   className="bg-button-color flex justify-center self-center gap-1 px-4 text-center rounded-lg text-nav-white"
+                  onClick={
+                    editAbleLocationUser
+                      ? saveButtonLocationHandler
+                      : () => setEditAbleLocationUser(true)
+                  }
                 >
                   <MdModeEdit className="flex justify-center self-center" />
-                  Edit Info
+                  {editAbleLocationUser ? "Save Details" : "Edit Info"}
                 </Button>
               </div>
             </div>

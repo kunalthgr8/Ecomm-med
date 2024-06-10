@@ -161,7 +161,7 @@ export class AuthService {
   async changeUserDetails({ fullname, email, phoneNumber, gender }) {
     try {
       const accessToken = Cookies.get("accessToken");
-      console.log(" from authjs",fullname, email, phoneNumber,gender)
+      console.log(" from authjs", fullname, email, phoneNumber, gender);
       const response = await axios.put(
         "http://localhost:8000/api/v1/users/updateUserDetails",
         {
@@ -177,9 +177,35 @@ export class AuthService {
         }
       );
       return response;
-
     } catch (error) {
       console.log("Appwrite serive :: changeDetails :: error", error);
+    }
+  }
+
+  async updateUserLocationDetails({ address, city, pincode, district }) {
+    try {
+      const accessToken = Cookies.get("accessToken");
+      const response = await axios.put(
+        "http://localhost:8000/api/v1/users/updateLocationDetails",
+        {
+          address,
+          city,
+          pincode,
+          district,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(
+        "Appwrite serive :: updateUserLocationDetails :: error",
+        error
+      );
     }
   }
 }
