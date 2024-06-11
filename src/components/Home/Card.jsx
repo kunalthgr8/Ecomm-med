@@ -10,7 +10,7 @@ function Card({ className, prod }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const itemInCart = cart.find((item) => item.product.id === prod.id);
+    const itemInCart = cart.find((item) => item.product.id === prod._id);
     if (itemInCart) {
       setIsInCart(true);
       setQty(itemInCart.qty);
@@ -18,19 +18,19 @@ function Card({ className, prod }) {
       setIsInCart(false);
       setQty(0);
     }
-  }, [cart, prod.id,isInCart,qty]);
+  }, [cart, prod._id,isInCart,qty]);
 
   const handleIncrement = () => {
     setQty(qty + 1);
-    dispatch(updateQty({ id: prod.id, qty: qty + 1 }));
+    dispatch(updateQty({ id: prod._id, qty: qty + 1 }));
   };
 
   const handleDecrement = () => {
     if (qty > 1) {
       setQty(qty - 1);
-      dispatch(updateQty({ id: prod.id, qty: qty - 1 }));
+      dispatch(updateQty({ id: prod._id, qty: qty - 1 }));
     } else {
-      dispatch(removeFromCart(prod.id));
+      dispatch(removeFromCart(prod._id));
     }
   };
 
@@ -40,12 +40,12 @@ function Card({ className, prod }) {
         <img
           className="rounded-xl w-[70px] h-[80px]"
           src={prod.image}
-          alt={prod.title}
+          alt={prod.name}
         />
       </div>
       <div className="flex flex-col items-center text-left">
         <h3 className="text-nav-color font-bold tracking-wider">
-          {prod.title.substring(0, 20)}
+          {prod.name.substring(0, 20)}
         </h3>
         <p className="text-black-heading text-sm mt-2 font-semibold">
           ${prod.price}

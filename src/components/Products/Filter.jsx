@@ -5,6 +5,7 @@ import { setFilters } from "../../store/product/productSlice";
 function Filter() {
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.product.filters);
+  // const catergories = filters.map((filter) => filter.category);
 
   const handleCategoryChange = (category) => {
     const newCategories = filters.category.includes(category)
@@ -33,8 +34,8 @@ function Filter() {
         <div className="flex mt-2 gap-3 pl-2">
           <input
             type="checkbox"
-            checked={filters.category.includes(`men's clothing`)}
-            onChange={() => handleCategoryChange(`men's clothing`)}
+            checked={filters.category.includes(`men`)}
+            onChange={() => handleCategoryChange(`men`)}
           />
           <label className="text-sm">men's clothing</label>
         </div>

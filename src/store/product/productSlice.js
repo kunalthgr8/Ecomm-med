@@ -1,5 +1,6 @@
 // ProductSlice.jsx
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import productService from "../../appwrite/product";
 
 export const STATUSES = Object.freeze({
   IDLE: "idle",
@@ -43,9 +44,12 @@ export default productSlice.reducer;
 export const fetchProducts = createAsyncThunk(
   "product/fetchProducts",
   async () => {
-    const res = await fetch("https://fakestoreapi.com/products");
-    const data = await res.json();
-    return data;
+    // const res = await fetch("https://fakestoreapi.com/products");
+    const res2 = await productService.getProducts();
+    console.log(res2);
+    // const data = await res.json();
+    // console.log(data);
+    return res2;
   }
 );
 

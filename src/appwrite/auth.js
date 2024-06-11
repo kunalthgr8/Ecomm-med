@@ -1,36 +1,14 @@
 import conf from "../conf/conf.js";
-import { Client, Account, ID } from "appwrite";
 import axios from "axios";
 import Cookies from "js-cookie";
-export class AuthService {
-  client = new Client();
-  account;
 
+export class AuthService {
   constructor() {
-    this.client
-      .setEndpoint(conf.appwriteUrl)
-      .setProject(conf.appwriteProjectId);
-    this.account = new Account(this.client);
+    // Initialization logic can be added here if needed
   }
 
   async createAccount({ fullname, email, password, phoneNumber }) {
     try {
-      // Code for Appwrite backend
-
-      // const userAccount = await this.account.create(
-      //   ID.unique(),
-      //   email,
-      //   password,
-      //   fullname
-      // );
-      // if (userAccount) {
-      //   return this.login({ email, password });
-      // } else {
-      //   return userAccount;
-      // }
-
-      //  Code for my own backend
-
       const response = await axios.post(
         "http://localhost:8000/api/v1/users/register",
         {
@@ -54,12 +32,6 @@ export class AuthService {
 
   async login({ email, password }) {
     try {
-      // Code for Appwrite backend
-
-      // return await this.account.createEmailPasswordSession(email, password);
-
-      // Code for my own backend
-
       const response = await axios.post(
         "http://localhost:8000/api/v1/users/login",
         {
@@ -67,25 +39,19 @@ export class AuthService {
           password,
         }
       );
-      console.log("Appwrite serive :: login :: response", response);
+      console.log("AuthService :: login :: response", response);
       const { accessToken, refreshToken } = response.data.data;
       Cookies.set("accessToken", accessToken);
       Cookies.set("refreshToken", refreshToken);
       return response;
     } catch (error) {
-      console.log("Appwrite serive :: login :: error", error);
+      console.log("AuthService :: login :: error", error);
       throw error;
     }
   }
 
   async getCurrentUser() {
     try {
-      // Code for Appwrite backend
-
-      // return await this.account.get();
-
-      // Code for my own backend
-
       const accessToken = Cookies.get("accessToken");
       const response = await axios.get(
         "http://localhost:8000/api/v1/users/me",
@@ -95,23 +61,15 @@ export class AuthService {
           },
         }
       );
-
       return response;
     } catch (error) {
-      console.log("Appwrite serive :: getCurrentUser :: error", error);
+      console.log("AuthService :: getCurrentUser :: error", error);
     }
-
     return null;
   }
 
   async logout() {
     try {
-      // Code for Appwrite backend
-
-      // await this.account.deleteSessions();
-
-      // Code for my own backend
-
       const refreshToken = Cookies.get("refreshToken");
       const response = await axios.post(
         "http://localhost:8000/api/v1/users/logout",
@@ -127,18 +85,12 @@ export class AuthService {
       Cookies.remove("refreshToken");
       return response;
     } catch (error) {
-      console.log("Appwrite serive :: logout :: error", error);
+      console.log("AuthService :: logout :: error", error);
     }
   }
 
   async changePassword({ oldPassword, newPassword }) {
     try {
-      // Code for Appwrite backend
-
-      // return await this.account.updateEmail(email);
-
-      // Code for my own backend
-
       const accessToken = Cookies.get("accessToken");
       const response = await axios.post(
         "http://localhost:8000/api/v1/users/changePassword",
@@ -154,14 +106,14 @@ export class AuthService {
       );
       return response;
     } catch (error) {
-      console.log("Appwrite serive :: changePassword :: error", error);
+      console.log("AuthService :: changePassword :: error", error);
     }
   }
 
   async changeUserDetails({ fullname, email, phoneNumber, gender }) {
     try {
       const accessToken = Cookies.get("accessToken");
-      console.log(" from authjs", fullname, email, phoneNumber, gender);
+      console.log("from AuthService", fullname, email, phoneNumber, gender);
       const response = await axios.put(
         "http://localhost:8000/api/v1/users/updateUserDetails",
         {
@@ -178,7 +130,7 @@ export class AuthService {
       );
       return response;
     } catch (error) {
-      console.log("Appwrite serive :: changeDetails :: error", error);
+      console.log("AuthService :: changeDetails :: error", error);
     }
   }
 
@@ -203,7 +155,7 @@ export class AuthService {
       return response;
     } catch (error) {
       console.log(
-        "Appwrite serive :: updateUserLocationDetails :: error",
+        "AuthService :: updateUserLocationDetails :: error",
         error
       );
     }

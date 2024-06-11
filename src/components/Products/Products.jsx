@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 function Products() {
   const dispatch = useDispatch();
   const products = useSelector(selectFilteredProducts);
+  // const products = useSelector(state => state.product.data);
   const status = useSelector(state => state.product.status);
 
   useEffect(() => {
@@ -30,7 +31,7 @@ function Products() {
           {status === STATUSES.IDLE && (
             <div className="flex flex-row flex-wrap justify-center self-center gap-10 w-full">
               {products.map((product) => (
-                <div key={product.id} className="w-[230px] h-[285px]">
+                <div key={product._id} className="w-[230px] h-[285px]">
                   <Card
                     prod={product}
                     className="border-2 border-nav-color hover:border-2 hover:border-text-green cursor-pointer"
