@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Shiping from "./Shiping"; // Corrected import name
 import CustomerInfo from "./CustomerInfo";
+import PaymentInfo from "./PaymentInfo";
 
 const steps = [
   "Customer Info",
@@ -118,6 +119,6 @@ export default function HorizontalLinearStepper() {
 
 // Example components for each step
 
-function PaymentInfo() {
-  return <div>Payment Info Content</div>;
-}
+// function PaymentInfo() {
+//   return <div>Payment Info Content</div>;
+// }

@@ -10,25 +10,40 @@ function Card({ className, prod }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const itemInCart = cart.find((item) => item.product.id === prod._id);
+    const itemInCart = cart.find((item) => item.product._id === prod._id);
+    console.log("Cart",cart)
     if (itemInCart) {
-      setIsInCart(true);
-      setQty(itemInCart.qty);
+      if (!isInCart) setIsInCart(true);
+      if (qty !== itemInCart.qty) setQty(itemInCart.qty);
     } else {
-      setIsInCart(false);
-      setQty(0);
+      if (isInCart) setIsInCart(false);
+      if (qty !== 0) setQty(0);
     }
-  }, [cart, prod._id,isInCart,qty]);
+  }, [cart, prod._id]);
+
+  const handleSubmit = (id) => {
+    console.log("id", id);
+    let item = cart.find((item) => item.product.id === id);
+    console.log("item", item);
+    if (item) {
+      handleIncrement();
+    } else {
+      setIsInCart(true);
+      dispatch(addToCart({ qty: 1, product: prod }));
+    }
+  }
 
   const handleIncrement = () => {
-    setQty(qty + 1);
-    dispatch(updateQty({ id: prod._id, qty: qty + 1 }));
+    const newQty = qty + 1;
+    setQty(newQty);
+    dispatch(updateQty({ id: prod._id, qty: newQty }));
   };
 
   const handleDecrement = () => {
     if (qty > 1) {
-      setQty(qty - 1);
-      dispatch(updateQty({ id: prod._id, qty: qty - 1 }));
+      const newQty = qty - 1;
+      setQty(newQty);
+      dispatch(updateQty({ id: prod._id, qty: newQty }));
     } else {
       dispatch(removeFromCart(prod._id));
     }
@@ -54,11 +69,7 @@ function Card({ className, prod }) {
       <div className="w-full flex justify-center">
         {!isInCart ? (
           <Button
-            onClick={() => {
-              dispatch(addToCart({ qty: 1, product: prod }));
-              setIsInCart(true);
-              setQty(1);
-            }}
+            onClick={() => handleSubmit(prod._id)}
             className="bg-button-color w-full text-sm text-nav-white rounded-lg font-semibold transition-transform duration-400 hover:scale-110"
           >
             ADD TO CART
