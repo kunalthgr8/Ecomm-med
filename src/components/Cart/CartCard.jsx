@@ -3,9 +3,10 @@ import { Button } from "../index";
 import { MdDeleteOutline } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, updateQty } from "../../store/cart/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 function CartCard({ qty, product}) {
-  
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   
   const handleRemove = (productId) => {
@@ -13,20 +14,22 @@ function CartCard({ qty, product}) {
   }
 
   const handleIncrement = () => {
-    dispatch(updateQty({ id: product.id, qty: qty + 1 }));
+    dispatch(updateQty({ id: product._id, qty: qty + 1 }));
   }
 
   const handleDecrement = () => {
     if (qty > 1) {
-      dispatch(updateQty({ id: product.id, qty: qty - 1 }));
+      dispatch(updateQty({ id: product._id, qty: qty - 1 }));
     }else{
-      handleRemove(product.id);
+      handleRemove(product._id);
     }
   }
 
   return (
     <>
-      <div className="bg-nav-white flex flex-row justify-center self-center rounded-xl m-3 p-4 border-2 border-nav-color w-5/6">
+      <div className="bg-nav-white flex flex-row justify-center self-center rounded-xl m-3 p-4 border-2 border-nav-color w-5/6"
+      onClick={()=> navigate(`/product/${product._id}`)}
+      >
         <div className="flex justify-center self-center">
           <img
             className="rounded-xl w-[150px]"
@@ -39,7 +42,7 @@ function CartCard({ qty, product}) {
             <h1 className="font-semibold text-nav-color text-lg tracking-wide">
               {product.title}
             </h1>
-            <button className="text-xl" onClick={()=>handleRemove(product.id)}>
+            <button className="text-xl" onClick={()=>handleRemove(product._id)}>
               <MdDeleteOutline />
             </button>
           </div>

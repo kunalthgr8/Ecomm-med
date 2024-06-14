@@ -20,6 +20,7 @@ function Shiping() {
   });
 
   const saveButtonLocationHandler = async () => {
+    console.log("User :: saveButtonHandler :: data", dataLocation);
     if (
       dataLocation.address.trim() === "" ||
       dataLocation.pincode.trim() === "" ||

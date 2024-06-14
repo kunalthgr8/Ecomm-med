@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "../index";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, updateQty, removeFromCart } from "../../store/cart/cartSlice";
+import {
+  addToCart,
+  updateQty,
+  removeFromCart,
+} from "../../store/cart/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 function Card({ className, prod }) {
   const [isInCart, setIsInCart] = useState(false);
   const [qty, setQty] = useState(0);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   useEffect(() => {
     const itemInCart = cart.find((item) => item.product._id === prod._id);
-    console.log("Cart",cart)
+    console.log("Cart", cart);
     if (itemInCart) {
       if (!isInCart) setIsInCart(true);
       if (qty !== itemInCart.qty) setQty(itemInCart.qty);
@@ -31,7 +36,7 @@ function Card({ className, prod }) {
       setIsInCart(true);
       dispatch(addToCart({ qty: 1, product: prod }));
     }
-  }
+  };
 
   const handleIncrement = () => {
     const newQty = qty + 1;
@@ -50,15 +55,23 @@ function Card({ className, prod }) {
   };
 
   return (
-    <div className={`bg-nav-white w-full h-full grid gap-4 p-4 rounded-lg ${className}`}>
-      <div className="flex justify-center p-2">
+    <div
+      className={`bg-nav-white w-full h-full grid gap-4 p-4 rounded-lg ${className}`}
+    >
+      <div
+        className="flex justify-center p-2"
+        onClick={() => navigate(`/product/${prod._id}`)}
+      >
         <img
           className="rounded-xl w-[70px] h-[80px]"
           src={prod.image}
           alt={prod.name}
         />
       </div>
-      <div className="flex flex-col items-center text-left">
+      <div
+        className="flex flex-col items-center text-left"
+        onClick={() => navigate(`/product/${prod._id}`)}
+      >
         <h3 className="text-nav-color font-bold tracking-wider">
           {prod.name.substring(0, 20)}
         </h3>

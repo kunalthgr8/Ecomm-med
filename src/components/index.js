@@ -25,8 +25,9 @@ import Loader from "./Loader/Loder";
 import Steper from "./Steper/Stepper";
 import ChangePassword from "./ChangePassword/ChangePassword";
 import AuthLayout from "./AuthLayout.jsx";
-
+import Product from "./Product/Product.jsx";
 export {
+  Product,
   AuthLayout,
   ChangePassword,
   Steper,

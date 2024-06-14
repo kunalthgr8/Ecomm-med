@@ -137,6 +137,8 @@ export class AuthService {
   async updateUserLocationDetails({ address, city, pincode, district }) {
     try {
       const accessToken = Cookies.get("accessToken");
+      console.log("from AuthService", address, city, pincode, district)
+      console.log("from AuthService", accessToken)
       const response = await axios.put(
         "http://localhost:8000/api/v1/users/updateLocationDetails",
         {

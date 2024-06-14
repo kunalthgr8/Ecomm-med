@@ -19,6 +19,7 @@ function CustomerInfo() {
   });
 
   const saveButtonHandler = async () => {
+    console.log("User :: saveButtonHandler :: data", data);
     if (
       data.fullname === "" ||
       data.email === "" ||
@@ -29,6 +30,7 @@ function CustomerInfo() {
       return;
     }
     try {
+      console.log("User :: saveButtonHandler :: data", data)
       const user = await authService.changeUserDetails(data);
       if (user) {
         const userData = await authService.getCurrentUser();

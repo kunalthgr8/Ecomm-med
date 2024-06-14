@@ -13,7 +13,14 @@ export class OrderService {
       const response = await axios.post(
         "http://localhost:8000/api/v1/orders/newOrder",
         {
-          data,
+          orderItems: data.orderItems,
+          paymentInfo: data.paymentInfo,
+          paidAt: data.paidAt,
+          itemsPrice: data.itemsPrice,
+          taxPrice: data.taxPrice,
+          shippingPrice: data.shippingPrice,
+          totalPrice: data.totalPrice,
+          orderStatus: data.orderStatus,
         },
         {
           headers: {
