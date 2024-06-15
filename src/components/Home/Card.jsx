@@ -16,7 +16,6 @@ function Card({ className, prod }) {
   const navigate = useNavigate();
   useEffect(() => {
     const itemInCart = cart.find((item) => item.product._id === prod._id);
-    console.log("Cart", cart);
     if (itemInCart) {
       if (!isInCart) setIsInCart(true);
       if (qty !== itemInCart.qty) setQty(itemInCart.qty);
@@ -27,9 +26,7 @@ function Card({ className, prod }) {
   }, [cart, prod._id]);
 
   const handleSubmit = (id) => {
-    console.log("id", id);
     let item = cart.find((item) => item.product.id === id);
-    console.log("item", item);
     if (item) {
       handleIncrement();
     } else {

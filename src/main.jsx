@@ -11,6 +11,7 @@ import {
   Link,
 } from "react-router-dom";
 import {
+  Addproduct,
   Login,
   Signup,
   Contact,
@@ -23,6 +24,8 @@ import {
   ChangePassword,
   AuthLayout,
   Product,
+  GetAdminProducts,
+  AdminProduct,
 } from "./components/index.js";
 
 const router = createBrowserRouter([
@@ -37,7 +40,7 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: (
-          <AuthLayout authentication={false}>
+          <AuthLayout authentication={false} isAdmin={false}>
             <Login />
           </AuthLayout>
         ),
@@ -45,7 +48,7 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: (
-          <AuthLayout authentication={false}>
+          <AuthLayout authentication={false} isAdmin={false}>
             <Signup />
           </AuthLayout>
         ),
@@ -61,7 +64,8 @@ const router = createBrowserRouter([
       {
         path: "/products",
         element: <Products />,
-      },{
+      },
+      {
         path: "/product/:id",
         element: <Product />,
       },
@@ -76,16 +80,40 @@ const router = createBrowserRouter([
       {
         path: "/stepper",
         element: (
-          <AuthLayout authentication={true}>
+          <AuthLayout authentication={true} isAdmin={false}>
             <Steper />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/getAdminProducts",
+        element: (
+          <AuthLayout authentication={true} isAdmin={true}>
+            <GetAdminProducts />
           </AuthLayout>
         ),
       },
       {
         path: "/changePassword",
         element: (
-          <AuthLayout authentication={true}>
+          <AuthLayout authentication={true} isAdmin={false}>
             <ChangePassword />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/adminproduct/:id",
+        element: (
+          <AuthLayout authentication={true} isAdmin={true}>
+            <AdminProduct />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/addproduct",
+        element: (
+          <AuthLayout authentication={true} isAdmin={true}>
+            <Addproduct />
           </AuthLayout>
         ),
       },

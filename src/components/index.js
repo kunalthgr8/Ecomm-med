@@ -26,7 +26,13 @@ import Steper from "./Steper/Stepper";
 import ChangePassword from "./ChangePassword/ChangePassword";
 import AuthLayout from "./AuthLayout.jsx";
 import Product from "./Product/Product.jsx";
+import Addproduct from "./Addproduct/Addproduct.jsx";
+import GetAdminProducts from "./GetAdminProducts/GetProducts.jsx";
+import AdminProduct from "./GetAdminProducts/Product.jsx";
 export {
+  AdminProduct,
+  GetAdminProducts,
+  Addproduct,
   Product,
   AuthLayout,
   ChangePassword,

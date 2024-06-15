@@ -18,6 +18,7 @@ const Product = () => {
   const [qty, setQty] = useState(0);
   const [isInCart, setIsInCart] = useState(false);
   const cart = useSelector((state) => state.cart);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.userData);
   const [reviewDataByUser, setReviewDataByUser] = useState({
@@ -309,7 +310,7 @@ const Product = () => {
             <hr className="border-t-2" />
             {/* Review form */}
             <div>
-              {!addingComment && (
+              {!addingComment && isAuthenticated && (
                 <Button
                   width="flex justify-end"
                   onClick={() => setAddingComment(true)}

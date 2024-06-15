@@ -12,6 +12,7 @@ function User() {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const userData = useSelector((state) => state.auth.userData);
+  console.log("User :: userData", userData);
   const [editAbleUser, setEditAbleUser] = React.useState(false);
   const [editAbleLocationUser, setEditAbleLocationUser] = React.useState(false);
   const [data, setData] = React.useState({

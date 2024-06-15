@@ -13,22 +13,84 @@ import authService from "../../appwrite/auth";
 
 const navItems = [
   { name: "Home", slug: "/", icon: IoHome, color: "text-nav-white" },
-  { name: "Products", slug: "/products", icon: AiOutlineProduct, color: "text-nav-white" },
+  {
+    name: "Products",
+    slug: "/products",
+    icon: AiOutlineProduct,
+    color: "text-nav-white",
+  },
   { name: "Cart", slug: "/cart", icon: IoMdCart, color: "text-nav-white" },
-  { name: "Offers", slug: "/offers", icon: BiSolidOffer, color: "text-nav-white" },
-  { name: "Contact Us", slug: "/contact", icon: MdOutlineContactSupport, color: "text-nav-white" },
-  { name: "Logout", slug: "/logout", icon: BiLogOut, color: "text-logout-color", requiresAuth: true },
-  { name: "Login/Register", slug: "/login", icon: BiLogIn, color: "text-logout-color", requiresAuth: false },
+  {
+    name: "Offers",
+    slug: "/offers",
+    icon: BiSolidOffer,
+    color: "text-nav-white",
+  },
+  {
+    name: "Contact Us",
+    slug: "/contact",
+    icon: MdOutlineContactSupport,
+    color: "text-nav-white",
+  },
+  {
+    name: "Logout",
+    slug: "/logout",
+    icon: BiLogOut,
+    color: "text-logout-color",
+    requiresAuth: true,
+  },
+  {
+    name: "Login/Register",
+    slug: "/login",
+    icon: BiLogIn,
+    color: "text-logout-color",
+    requiresAuth: false,
+  },
 ];
+
+const adminNavItems = [
+  {
+    name: "My Products",
+    slug: "/getAdminProducts",
+    icon: AiOutlineProduct,
+    color: "text-nav-white",
+  },
+  {
+    name: "Add Product",
+    slug: "/addproduct",
+    icon: AiOutlineProduct,
+    color: "text-nav-white",
+  },
+
+  {
+    name: "Contact Info",
+    slug: "/contact",
+    icon: MdOutlineContactSupport,
+    color: "text-nav-white",
+  },
+  {
+    name: "Logout",
+    slug: "/logout",
+    icon: BiLogOut,
+    color: "text-logout-color",
+    requiresAuth: true,
+  },
+];
+
+// In your render method, replace `navItems.map` with `filteredNavItems.map`
 
 const NavItem = React.memo(({ item, isActive, onClick, totalItemsInCart }) => (
   <li
-    className={`flex items-center m-1 text-base font-medium cursor-pointer p-2 hover:text-nav-active hover:font-bold ${isActive ? "text-nav-active" : item.color} text-slate-50`}
+    className={`flex items-center m-1 text-base font-medium cursor-pointer p-2 hover:text-nav-active hover:font-bold ${
+      isActive ? "text-nav-active" : item.color
+    } text-slate-50`}
     onClick={onClick}
     aria-current={isActive ? "page" : undefined}
   >
     <item.icon className="mr-2" />
-    {item.name === "Cart" ? `${item.name} ${totalItemsInCart || ""}` : item.name}
+    {item.name === "Cart"
+      ? `${item.name} ${totalItemsInCart || ""}`
+      : item.name}
   </li>
 ));
 
@@ -37,30 +99,36 @@ const SideBar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const roleType = useSelector((state) => state.auth.userData);
+  const isAdmin = roleType?.role === ("admin") || false;
+  const filteredNavItems = isAdmin ? adminNavItems : navItems;
   const totalItemsInCart = useSelector((state) => state.cart.length);
 
   const logoutHandler = useCallback(async () => {
     const response = await authService.logout();
-    console.log("SideBar :: logoutHandler :: response", response);
     dispatch(logout());
-  }, [dispatch]);
+    navigate("/login");
+  }, [dispatch, navigate]);
 
   return (
     <div className="h-full pt-5 p-4 flex flex-col bg-nav-color">
       <div className="mt-8 flex flex-col justify-center text-center gap-2">
-        <Link to="/">
+        <Link to={isAdmin ? "/addproduct" : "/"}>
           <Logo width="100px" height="100px" />
         </Link>
+
         <h1 className="text-text-green mt-2 text-4xl md:text-3xl sm:text-2xl font-bold tracking-widest">
           Aoushadhi
         </h1>
       </div>
       <ul className="mt-8 p-4">
-        {navItems.map((item) => {
+        {filteredNavItems.map((item) => {
           const { slug, name, requiresAuth } = item;
-          const isVisible = requiresAuth === undefined || requiresAuth === isAuthenticated;
+          const isVisible =
+            requiresAuth === undefined || requiresAuth === isAuthenticated || isAdmin;
           const isActive = location.pathname === slug;
-          const onClick = name === "Logout" ? logoutHandler : () => navigate(slug);
+          const onClick =
+            name === "Logout" ? logoutHandler : () => navigate(slug);
 
           return (
             isVisible && (
