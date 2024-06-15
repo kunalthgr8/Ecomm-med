@@ -22,7 +22,7 @@ function Cart() {
               Order Summary
             </h1>
             {cart.map((item, index) => (
-              <CartCard key={item.id} product={item.product} qty={item.qty} />
+              <CartCard key={item.id} product={item.product} productQty={item.product.stock} qty={item.qty} />
             ))}
           </div>
           <div className="flex flex-col pt-4 w-1/3">

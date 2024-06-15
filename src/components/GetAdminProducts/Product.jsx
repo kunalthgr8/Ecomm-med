@@ -73,6 +73,7 @@ const AdminProduct = () => {
     try {
       const response = await productService.updateProduct(data, id);
       setProduct(response);
+      navigate(`/adminproduct/${id}`)
     } catch (error) {
       console.log("Failed to save product data", error);
     }
@@ -130,6 +131,10 @@ const AdminProduct = () => {
                     </div>
                     <div className="pl-2 text-base text-black-heading mt-2">
                       {product.description}
+                    </div>
+                    <div className="text-text-green font-bold text-sm pl-1">
+                      <p>Category : {product.category}</p>
+                      <p>Stock : {product.stock === 0 ? (<p className="text-logout-color">Out Of Stock</p>) : product.stock}</p>
                     </div>
                   </div>
                 </div>

@@ -53,7 +53,7 @@ const navItems = [
 const adminNavItems = [
   {
     name: "Dashboard",
-    slug: "/adminDashboard",
+    slug: "/",
     icon: MdDashboard,
     color: "text-nav-white",
   },
@@ -69,7 +69,12 @@ const adminNavItems = [
     icon: MdDomainAdd,
     color: "text-nav-white",
   },
-
+  {
+    name: "Customers",
+    slug: "/contact",
+    icon: MdOutlineContactSupport,
+    color: "text-nav-white",
+  },
   {
     name: "Contact Info",
     slug: "/contact",
@@ -108,7 +113,7 @@ const SideBar = () => {
   const location = useLocation();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const roleType = useSelector((state) => state.auth.userData);
-  const isAdmin = roleType?.role === ("admin") || false;
+  const isAdmin = roleType?.role === "admin" || false;
   const filteredNavItems = isAdmin ? adminNavItems : navItems;
   const totalItemsInCart = useSelector((state) => state.cart.length);
 
@@ -121,7 +126,7 @@ const SideBar = () => {
   return (
     <div className="h-full pt-5 p-4 flex flex-col bg-nav-color">
       <div className="mt-8 flex flex-col justify-center text-center gap-2">
-        <Link to={isAdmin ? "/addproduct" : "/"}>
+        <Link to="/">
           <Logo width="100px" height="100px" />
         </Link>
 
@@ -133,7 +138,9 @@ const SideBar = () => {
         {filteredNavItems.map((item) => {
           const { slug, name, requiresAuth } = item;
           const isVisible =
-            requiresAuth === undefined || requiresAuth === isAuthenticated || isAdmin;
+            requiresAuth === undefined ||
+            requiresAuth === isAuthenticated ||
+            isAdmin;
           const isActive = location.pathname === slug;
           const onClick =
             name === "Logout" ? logoutHandler : () => navigate(slug);

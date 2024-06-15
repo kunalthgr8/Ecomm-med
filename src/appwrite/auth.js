@@ -162,6 +162,25 @@ export class AuthService {
       );
     }
   }
+
+  async updateUserToSeller(){
+    try {
+      const accessToken = Cookies.get("accessToken");
+      const response = await axios.put(
+        "http://localhost:8000/api/v1/users/updateToSeller",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      return response;
+    } catch (error) {
+      console.log("AuthService :: updateUserToSeller :: error", error);
+    }
+  
+  }
 }
 
 const authService = new AuthService();

@@ -3,8 +3,11 @@ import { Button as Btn } from "../index";
 import { useSelector } from "react-redux";
 import orderService from "../../appwrite/order";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../../store/cart/cartSlice";
 
 function PaymentInfo() {
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 const navigate = useNavigate();
   const handleSubmit = async () => {
@@ -42,8 +45,8 @@ const navigate = useNavigate();
       console.log("Data", data);
       const resp = await orderService.addNewProduct(data);
       console.log(resp);
+      dispatch(clearCart())
       navigate("/");
-
     } catch (error) {
       console.error("Error adding new product:", error);
     }

@@ -100,6 +100,16 @@ function User() {
       [name]: value,
     }));
   };
+  const makeaSeller = async () => {
+    try {
+      const response  = await authService.updateUserToSeller();
+      console.log("User :: makeaSeller :: response", response);
+      dispatch(login(response.data.data))
+      navigate("/");
+    } catch (error) {
+      console.log("User :: makeaSeller :: error", error);
+    }
+  }
 
   const capitalizeName = (name) =>
     name
@@ -128,6 +138,7 @@ function User() {
               >
                 Change Password
               </p>
+              <p className="text-logout-color text-sm cursor-pointer italic font-medium" onClick={makeaSeller}>Become a Seller</p>
             </div>
           </div>
           <div className="flex flex-col gap-5 w-2/3">

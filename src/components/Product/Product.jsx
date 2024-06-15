@@ -57,6 +57,11 @@ const Product = () => {
 
   const handleIncrement = () => {
     const newQty = qty + 1;
+    if (newQty > product.stock) {
+      setQty(product.stock);
+      dispatch(updateQty({ id: product._id, qty: product.stock }));
+      return;
+    }
     setQty(newQty);
     dispatch(updateQty({ id: product._id, qty: newQty }));
   };
@@ -202,7 +207,7 @@ const Product = () => {
                   <div className="flex justify-between p-1 pr-2 pl-2">
                     <div className="text-nav-color font-medium">Left Stock</div>
                     <div className="text-text-green text-sm font-medium">
-                      {product.stock}
+                      {product.stock === 0 ? (<p className="text-logout-color">Out Of Stock</p>) : product.stock}
                     </div>
                   </div>
                 </div>

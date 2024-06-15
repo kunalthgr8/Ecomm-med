@@ -1,8 +1,9 @@
 import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
-function AdminCard({ product: { _id, image, name, description, price } }) {
+function AdminCard({ product: { _id, image, name, description, price, stock } }) {
   const navigate = useNavigate();
+  console.log(name, stock);
 
   const handleNavigate = useCallback(() => {
     navigate(`/adminproduct/${_id}`);
@@ -36,6 +37,11 @@ function AdminCard({ product: { _id, image, name, description, price } }) {
             ${price}
           </p>
         </div>
+        {stock ===0 &&<div className="flex flex-row justify-between mt-4">
+          <p className="text-sm text-logout-color font-semibold">
+            "Out Of Stock"
+          </p>
+        </div>}
       </div>
     </div>
   );

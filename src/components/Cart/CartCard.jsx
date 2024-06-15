@@ -5,16 +5,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, updateQty } from "../../store/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
 
-function CartCard({ qty, product}) {
+function CartCard({ qty, product, productQty}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+  console.log("product", productQty);
   const handleRemove = (productId) => {
     dispatch(removeFromCart(productId));
   }
 
   const handleIncrement = () => {
-    dispatch(updateQty({ id: product._id, qty: qty + 1 }));
+    if(qty > productQty-1) return alert("Product out of stock");
+    if(qty > productQty-1){
+      dispatch(updateQty({ id: product._id, qty: productQty }));
+    }
   }
 
   const handleDecrement = () => {
@@ -28,7 +31,7 @@ function CartCard({ qty, product}) {
   return (
     <>
       <div className="bg-nav-white flex flex-row justify-center self-center rounded-xl m-3 p-4 border-2 border-nav-color w-5/6"
-      onClick={()=> navigate(`/product/${product._id}`)}
+      
       >
         <div className="flex justify-center self-center">
           <img

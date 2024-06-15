@@ -102,14 +102,14 @@ const router = createBrowserRouter([
           </AuthLayout>
         ),
       },
-      {
-        path: "/adminDashboard",
-        element: (
-          <AuthLayout authentication={true} isAdmin={true}>
-            <AdminDashboard />
-          </AuthLayout>
-        ),
-      },
+      // {
+      //   path: "/adminDashboard",
+      //   element: (
+      //     <AuthLayout authentication={true} isAdmin={true}>
+      //       <AdminDashboard />
+      //     </AuthLayout>
+      //   ),
+      // },
       {
         path: "/adminproduct/:id",
         element: (
