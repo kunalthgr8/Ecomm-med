@@ -29,7 +29,9 @@ import Product from "./Product/Product.jsx";
 import Addproduct from "./Addproduct/Addproduct.jsx";
 import GetAdminProducts from "./GetAdminProducts/GetProducts.jsx";
 import AdminProduct from "./GetAdminProducts/Product.jsx";
+import AdminDashboard from "./AdminDashboard/AdminDashboard.jsx";
 export {
+  AdminDashboard,
   AdminProduct,
   GetAdminProducts,
   Addproduct,

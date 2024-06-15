@@ -22,7 +22,7 @@ function GetAdminProducts() {
 
   return (
     <div className="w-4/5 flex flex-col mt-5 gap-5">
-      <h1 className="font-bold text-xl tracking-wider text-nav-color">All Products</h1>
+      <h1 className="font-bold text-xl tracking-wider text-nav-color">All Products ({products.length})</h1>
       <div className="flex flex-col justify-center self-center w-4/5">
         {products.length > 0 ? (
           products.map((product) => <AdminCard product={product} />)

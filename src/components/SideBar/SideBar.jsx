@@ -4,6 +4,8 @@ import { IoHome } from "react-icons/io5";
 import { AiOutlineProduct } from "react-icons/ai";
 import { IoMdCart } from "react-icons/io";
 import { BiSolidOffer } from "react-icons/bi";
+import { MdDashboard } from "react-icons/md";
+import { MdDomainAdd } from "react-icons/md";
 import { MdOutlineContactSupport } from "react-icons/md";
 import { BiLogOut, BiLogIn } from "react-icons/bi";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -50,6 +52,12 @@ const navItems = [
 
 const adminNavItems = [
   {
+    name: "Dashboard",
+    slug: "/adminDashboard",
+    icon: MdDashboard,
+    color: "text-nav-white",
+  },
+  {
     name: "My Products",
     slug: "/getAdminProducts",
     icon: AiOutlineProduct,
@@ -58,7 +66,7 @@ const adminNavItems = [
   {
     name: "Add Product",
     slug: "/addproduct",
-    icon: AiOutlineProduct,
+    icon: MdDomainAdd,
     color: "text-nav-white",
   },
 
