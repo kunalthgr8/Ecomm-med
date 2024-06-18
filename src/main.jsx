@@ -27,6 +27,7 @@ import {
   GetAdminProducts,
   AdminProduct,
   AdminDashboard,
+  OrderHistory,
 } from "./components/index.js";
 
 const router = createBrowserRouter([
@@ -83,6 +84,14 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={true} isAdmin={false}>
             <Steper />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/orderHistory",
+        element: (
+          <AuthLayout authentication={true} isAdmin={false}>
+            <OrderHistory />
           </AuthLayout>
         ),
       },

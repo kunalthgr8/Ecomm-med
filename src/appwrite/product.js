@@ -55,6 +55,17 @@ export class ProductService {
     }
   }
 
+  async searchProducts(query) {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/api/v1/products/search?query=${query}`
+      );
+      return response.data.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async addProduct(data) {
     try {
       const accessToken = Cookies.get("accessToken");
@@ -69,6 +80,19 @@ export class ProductService {
         }
       );
       console.log("response", response);
+      return response.data.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllCategories() {
+    try {
+      console.log("inside get all categories");
+      const response = await axios.get(
+        "http://localhost:8000/api/v1/products/categories"
+      );
+      console.log("response of categories", response);
       return response.data.data;
     } catch (error) {
       throw error;
@@ -130,7 +154,6 @@ export class ProductService {
       throw error;
     }
   }
-
 }
 const productService = new ProductService();
 export default productService;

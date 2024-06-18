@@ -32,12 +32,18 @@ const navigate = useNavigate();
         (total, item) => total + item.price * item.qty,
         0
       ),
-      taxPrice: 1323, // Calculate tax based on itemsPrice or other rules
-      shippingPrice: 33, // Calculate shipping based on rules or cart data
+      taxPrice: orderItems.reduce(
+        (total, item) => total + item.price * item.qty,
+        0
+      )*.3, // Calculate tax based on itemsPrice or other rules
+      shippingPrice: 10, // Calculate shipping based on rules or cart data
       totalPrice:
         orderItems.reduce((total, item) => total + item.price * item.qty, 0) +
-        1323 +
-        33,
+        orderItems.reduce(
+          (total, item) => total + item.price * item.qty,
+          0
+        )*.3 +
+        10,
       orderStatus: "Processing",
     };
 

@@ -80,27 +80,36 @@ function Card({ className, prod }) {
         <p className="text-black-heading text-sm mt-2 font-semibold">
           ${prod.price}
         </p>
+        <p>
+          {prod.stock > 0 ? (
+            <></>
+          ) : (
+            <p className="text-sm text-logout-color font-bold mt-1">Out Of Stock</p>
+          )}
+        </p>
       </div>
-      <div className="w-full flex justify-center">
-        {!isInCart ? (
-          <Button
-            onClick={() => handleSubmit(prod._id)}
-            className="bg-button-color w-full text-sm text-nav-white rounded-lg font-semibold transition-transform duration-400 hover:scale-110"
-          >
-            ADD TO CART
-          </Button>
-        ) : (
-          <div className="flex flex-row justify-center self-center bg-button-color text-nav-white font-semibold px-3 py-1 rounded-xl gap-2">
-            <p className="text-2xl cursor-pointer" onClick={handleDecrement}>
-              -
-            </p>
-            <p className="flex justify-center self-center">Qty: {qty}</p>
-            <p className="text-2xl cursor-pointer" onClick={handleIncrement}>
-              +
-            </p>
-          </div>
-        )}
-      </div>
+      {prod.stock > 0 && (
+        <div className="w-full flex justify-center">
+          {!isInCart ? (
+            <Button
+              onClick={() => handleSubmit(prod._id)}
+              className="bg-button-color w-full text-sm text-nav-white rounded-lg font-semibold transition-transform duration-400 hover:scale-110"
+            >
+              ADD TO CART
+            </Button>
+          ) : (
+            <div className="flex flex-row justify-center self-center bg-button-color text-nav-white font-semibold px-3 py-1 rounded-xl gap-2">
+              <p className="text-2xl cursor-pointer" onClick={handleDecrement}>
+                -
+              </p>
+              <p className="flex justify-center self-center">Qty: {qty}</p>
+              <p className="text-2xl cursor-pointer" onClick={handleIncrement}>
+                +
+              </p>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

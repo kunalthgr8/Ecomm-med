@@ -157,12 +157,12 @@ const Product = () => {
                   </div>
                 </div>
                 {!isInCart ? (
-                  <Button
+                  product.stock > 0 &&  (<Button
                     onClick={handleAddToCart}
                     className="bg-button-color w-1/3 text-sm text-nav-white rounded-lg font-semibold transition-transform duration-400 hover:scale-110"
                   >
                     ADD TO CART
-                  </Button>
+                  </Button>)
                 ) : (
                   <div className="flex flex-row w-1/3 justify-center self-center bg-button-color text-nav-white font-semibold px-3 py-1 rounded-xl gap-2">
                     <p

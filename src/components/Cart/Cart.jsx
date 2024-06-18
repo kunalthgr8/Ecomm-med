@@ -1,13 +1,27 @@
 import React from "react";
-import { Billing, CartCard } from "../index";
+import { Billing, CartCard, Button } from "../index";
 import { useSelector } from "react-redux";
 import EmptyCart from "../../assets/empty.svg";
+import orderService from "../../appwrite/order";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const cart = useSelector((state) => state.cart);
+  const navigate = useNavigate();
 
+  const getOrders = () => {
+    navigate("/orderHistory");
+  };
   return (
     <div className="flex flex-col items-center w-full">
+      <Button
+        width="flex justify-center w-1/2"
+        className="bg-button-color w-1/3 text-sm text-nav-white rounded-lg font-semibold transition-transform duration-400 hover:scale-110"
+        onClick={getOrders}
+      >
+        {" "}
+        See Order History
+      </Button>
       {cart.length === 0 ? (
         <div className="flex flex-col items-center w-5/6 mt-10 h-full justify-center self-center">
           <img src={EmptyCart} alt="Your Cart is Empty" width="300px" />
@@ -22,7 +36,12 @@ function Cart() {
               Order Summary
             </h1>
             {cart.map((item, index) => (
-              <CartCard key={item.id} product={item.product} productQty={item.product.stock} qty={item.qty} />
+              <CartCard
+                key={item.id}
+                product={item.product}
+                productQty={item.product.stock}
+                qty={item.qty}
+              />
             ))}
           </div>
           <div className="flex flex-col pt-4 w-1/3">

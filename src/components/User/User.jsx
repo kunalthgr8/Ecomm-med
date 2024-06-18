@@ -12,6 +12,7 @@ function User() {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const userData = useSelector((state) => state.auth.userData);
+  const isAdmin = userData?.role === "admin";
   console.log("User :: userData", userData);
   const [editAbleUser, setEditAbleUser] = React.useState(false);
   const [editAbleLocationUser, setEditAbleLocationUser] = React.useState(false);
@@ -138,7 +139,7 @@ function User() {
               >
                 Change Password
               </p>
-              <p className="text-logout-color text-sm cursor-pointer italic font-medium" onClick={makeaSeller}>Become a Seller</p>
+             { !isAdmin && <p className="text-logout-color text-sm cursor-pointer italic font-medium" onClick={makeaSeller}>Become a Seller</p>}
             </div>
           </div>
           <div className="flex flex-col gap-5 w-2/3">

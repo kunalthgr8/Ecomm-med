@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilters } from "../../store/product/productSlice";
+import productService from "../../appwrite/product";
 
 function Filter() {
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.product.filters);
-  // const catergories = filters.map((filter) => filter.category);
+  const [filterOptions, setFilterOptions] = useState([]);
+
+  useEffect(() => {
+    const fetchAllCategories = async () => {
+      try {
+        const response = await productService.getAllCategories();
+        setFilterOptions(response);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchAllCategories();
+  }, []);
 
   const handleCategoryChange = (category) => {
     const newCategories = filters.category.includes(category)
@@ -31,66 +44,36 @@ function Filter() {
       </div>
       <div className="p-4 pt-0 w-full">
         <h1 className="text-base text-black-heading font-semibold tracking-wide">Category :</h1>
-        <div className="flex mt-2 gap-3 pl-2">
-          <input
-            type="checkbox"
-            checked={filters.category.includes(`men`)}
-            onChange={() => handleCategoryChange(`men`)}
-          />
-          <label className="text-sm">men's clothing</label>
-        </div>
-        <div className="flex mt-2 gap-3 pl-2">
-          <input
-            type="checkbox"
-            checked={filters.category.includes("jewelery")}
-            onChange={() => handleCategoryChange("jewelery")}
-          />
-          <label className="text-sm">jewelery</label>
-        </div>
-        <div className="flex mt-2 gap-3 pl-2">
-          <input
-            type="checkbox"
-            checked={filters.category.includes("electronics")}
-            onChange={() => handleCategoryChange("electronics")}
-          />
-          <label className="text-sm">electronics</label>
-        </div>
-        <div className="flex mt-2 gap-3 pl-2">
-          <input
-            type="checkbox"
-            checked={filters.category.includes(`women's clothing`)}
-            onChange={() => handleCategoryChange(`women's clothing`)}
-          />
-          <label className="text-sm">women's clothing</label>
-        </div>
-        {/* Add more categories as needed */}
+        {filterOptions.map((category) => (
+          <div key={category} className="flex mt-2 gap-3 pl-2">
+            <input
+              type="checkbox"
+              checked={filters.category.includes(category)}
+              onChange={() => handleCategoryChange(category)}
+            />
+            <label className="text-sm">{category}</label>
+          </div>
+        ))}
       </div>
       <div className="p-4 pt-0 w-full">
         <h1 className="text-base text-black-heading font-semibold tracking-wide">Price :</h1>
-        <div className="flex mt-2 gap-3 pl-2">
-          <input
-            type="checkbox"
-            checked={filters.price.some((p) => JSON.stringify(p) === JSON.stringify([1, 99]))}
-            onChange={() => handlePriceChange([1, 99])}
-          />
-          <label className="text-sm">$1-$99</label>
-        </div>
-        <div className="flex gap-3 pl-2">
-          <input
-            type="checkbox"
-            checked={filters.price.some((p) => JSON.stringify(p) === JSON.stringify([100, 999]))}
-            onChange={() => handlePriceChange([100, 999])}
-          />
-          <label className="text-sm">$100-$999</label>
-        </div>
-        <div className="flex gap-3 pl-2">
-          <input
-            type="checkbox"
-            checked={filters.price.some((p) => JSON.stringify(p) === JSON.stringify([1000, Infinity]))}
-            onChange={() => handlePriceChange([1000, Infinity])}
-          />
-          <label className="text-sm">$1000+</label>
-        </div>
+        {[
+          [1, 99],
+          [100, 999],
+          [1000, Infinity],
+        ].map((range) => {
+          const rangeString = JSON.stringify(range);
+          return (
+            <div key={rangeString} className="flex mt-2 gap-3 pl-2">
+              <input
+                type="checkbox"
+                checked={filters.price.some((p) => JSON.stringify(p) === rangeString)}
+                onChange={() => handlePriceChange(range)}
+              />
+              <label className="text-sm">{`$${range[0]}-${range[1] === Infinity ? '+' : range[1]}`}</label>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
