@@ -154,6 +154,23 @@ export class ProductService {
       throw error;
     }
   }
+
+  async deleteProductReview(productId, reviewId) {
+    try {
+      const accessToken = Cookies.get("accessToken");
+      const response = await axios.delete(
+        `http://localhost:8000/api/v1/products/productReviewDelete/${productId}/review/${reviewId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 const productService = new ProductService();
 export default productService;

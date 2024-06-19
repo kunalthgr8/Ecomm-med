@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import productService from "../../appwrite/product";
 import { useDispatch, useSelector } from "react-redux";
+import { MdDeleteOutline } from "react-icons/md";
 import {
   addToCart,
   updateQty,
@@ -21,26 +22,38 @@ const Product = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.userData);
+  console.log("product user", user)
   const [reviewDataByUser, setReviewDataByUser] = useState({
     comment: "",
     rating: null,
   });
   const [addingComment, setAddingComment] = useState(false);
 
+  const fetchProductData = useCallback(async () => {
+    try {
+      const data = await productService.getProductById(id);
+      const reviewData = await productService.getProductByReviewId(id);
+      setProduct(data);
+      setReviews(reviewData.slice(-2));
+    } catch (error) {
+      console.error("Failed to fetch product data", error);
+    }
+  }, [id]);
+
   useEffect(() => {
-    const fetchProductData = async () => {
-      try {
-        const data = await productService.getProductById(id);
-        const reviewData = await productService.getProductByReviewId(id);
-        setProduct(data);
-        setReviews(reviewData.slice(reviewData.length - 2, reviewData.length));
-      } catch (error) {
-        console.error("Failed to fetch product data", error);
-      }
-    };
+    // const fetchProductData = async () => {
+    //   try {
+    //     const data = await productService.getProductById(id);
+    //     const reviewData = await productService.getProductByReviewId(id);
+    //     setProduct(data);
+    //     setReviews(reviewData.slice(reviewData.length - 2, reviewData.length));
+    //   } catch (error) {
+    //     console.error("Failed to fetch product data", error);
+    //   }
+    // };
 
     fetchProductData();
-  }, [id, addingComment]);
+  }, [fetchProductData, addingComment]);
 
   useEffect(() => {
     if (product) {
@@ -101,6 +114,16 @@ const Product = () => {
     }
   };
 
+  const deleteReview = async (reviewId, productId) => {
+    try {
+      const resp = await productService.deleteProductReview(productId, reviewId);
+      fetchProductData();
+      console.log(resp);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       {product ? (
@@ -157,12 +180,14 @@ const Product = () => {
                   </div>
                 </div>
                 {!isInCart ? (
-                  product.stock > 0 &&  (<Button
-                    onClick={handleAddToCart}
-                    className="bg-button-color w-1/3 text-sm text-nav-white rounded-lg font-semibold transition-transform duration-400 hover:scale-110"
-                  >
-                    ADD TO CART
-                  </Button>)
+                  product.stock > 0 && (
+                    <Button
+                      onClick={handleAddToCart}
+                      className="bg-button-color w-1/3 text-sm text-nav-white rounded-lg font-semibold transition-transform duration-400 hover:scale-110"
+                    >
+                      ADD TO CART
+                    </Button>
+                  )
                 ) : (
                   <div className="flex flex-row w-1/3 justify-center self-center bg-button-color text-nav-white font-semibold px-3 py-1 rounded-xl gap-2">
                     <p
@@ -207,7 +232,11 @@ const Product = () => {
                   <div className="flex justify-between p-1 pr-2 pl-2">
                     <div className="text-nav-color font-medium">Left Stock</div>
                     <div className="text-text-green text-sm font-medium">
-                      {product.stock === 0 ? (<p className="text-logout-color">Out Of Stock</p>) : product.stock}
+                      {product.stock === 0 ? (
+                        <p className="text-logout-color">Out Of Stock</p>
+                      ) : (
+                        product.stock
+                      )}
                     </div>
                   </div>
                 </div>
@@ -260,7 +289,21 @@ const Product = () => {
                       </div>
                     </div>
                     <div className="text-nav-active text-sm pl-4">
-                      {review.comment}
+                      <div className="flex justify-between">
+                        {review.comment}
+                        {review.user}
+                        {(review.user === user._id) && (
+                          <p
+                            onClick={() =>
+                              deleteReview(review._id, product._id)
+                            }
+                            className="cursor-pointer font-bold text-logout-color text-base"
+                          >
+                            {" "}
+                            <MdDeleteOutline />
+                          </p>
+                        )}
+                      </div>
                       <hr />
                     </div>
                   </div>
