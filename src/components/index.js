@@ -31,7 +31,9 @@ import GetAdminProducts from "./GetAdminProducts/GetProducts.jsx";
 import AdminProduct from "./GetAdminProducts/Product.jsx";
 import AdminDashboard from "./AdminDashboard/AdminDashboard.jsx";
 import OrderHistory from "./Cart/OrderHistory.jsx";
+import AdminCustomers from "./AdminCustomers/AdminCustomers.jsx";
 export {
+  AdminCustomers,
   OrderHistory,
   AdminDashboard,
   AdminProduct,

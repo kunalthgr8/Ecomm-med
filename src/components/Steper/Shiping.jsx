@@ -20,7 +20,6 @@ function Shiping() {
   });
 
   const saveButtonLocationHandler = async () => {
-    console.log("User :: saveButtonHandler :: data", dataLocation);
     if (
       dataLocation.address.trim() === "" ||
       dataLocation.pincode.trim() === "" ||
@@ -34,7 +33,6 @@ function Shiping() {
       const user = await authService.updateUserLocationDetails(dataLocation);
       if (user) {
         const userData = await authService.getCurrentUser();
-        console.log("User :: saveButtonHandler :: userData", userData);
         if (userData) {
           localStorage.setItem("userData", JSON.stringify(userData.data.data));
           dispatch(login(userData.data.data));

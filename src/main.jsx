@@ -28,6 +28,7 @@ import {
   AdminProduct,
   AdminDashboard,
   OrderHistory,
+  AdminCustomers,
 } from "./components/index.js";
 
 const router = createBrowserRouter([
@@ -132,6 +133,14 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={true} isAdmin={true}>
             <Addproduct />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/customers",
+        element: (
+          <AuthLayout authentication={true} isAdmin={true}>
+            <AdminCustomers />
           </AuthLayout>
         ),
       },

@@ -7,9 +7,6 @@ export class OrderService {
   async addNewProduct(data) {
     try {
       const accessToken = Cookies.get("accessToken");
-      console.log("OrderService :: addNewProduct :: accessToken", accessToken);
-      console.log(data);
-      console.log("OrderService :: addNewProduct :: data", data.orderItems);
       const response = await axios.post(
         "http://localhost:8000/api/v1/orders/newOrder",
         {
@@ -28,7 +25,6 @@ export class OrderService {
           },
         }
       );
-      console.log(response);
       return response;
     } catch (error) {
       throw error;

@@ -47,7 +47,6 @@ export const fetchProducts = createAsyncThunk(
     // const res = await fetch("https://fakestoreapi.com/products");
     const res2 = await productService.getProducts();
     // const data = await res.json();
-    // console.log(data);
     return res2;
   }
 );

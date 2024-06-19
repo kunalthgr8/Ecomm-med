@@ -39,7 +39,6 @@ export class AuthService {
           password,
         }
       );
-      console.log("AuthService :: login :: response", response);
       const { accessToken, refreshToken } = response.data.data;
       Cookies.set("accessToken", accessToken);
       Cookies.set("refreshToken", refreshToken);
@@ -113,7 +112,6 @@ export class AuthService {
   async changeUserDetails({ fullname, email, phoneNumber, gender }) {
     try {
       const accessToken = Cookies.get("accessToken");
-      console.log("from AuthService", fullname, email, phoneNumber, gender);
       const response = await axios.put(
         "http://localhost:8000/api/v1/users/updateUserDetails",
         {
@@ -137,8 +135,6 @@ export class AuthService {
   async updateUserLocationDetails({ address, city, pincode, district }) {
     try {
       const accessToken = Cookies.get("accessToken");
-      console.log("from AuthService", address, city, pincode, district)
-      console.log("from AuthService", accessToken)
       const response = await axios.put(
         "http://localhost:8000/api/v1/users/updateLocationDetails",
         {
@@ -153,7 +149,6 @@ export class AuthService {
           },
         }
       );
-      console.log(response);
       return response;
     } catch (error) {
       console.log(

@@ -19,7 +19,6 @@ function CustomerInfo() {
   });
 
   const saveButtonHandler = async () => {
-    console.log("User :: saveButtonHandler :: data", data);
     if (
       data.fullname === "" ||
       data.email === "" ||
@@ -30,11 +29,9 @@ function CustomerInfo() {
       return;
     }
     try {
-      console.log("User :: saveButtonHandler :: data", data)
       const user = await authService.changeUserDetails(data);
       if (user) {
         const userData = await authService.getCurrentUser();
-        console.log("User :: saveButtonHandler :: userData", userData);
         if (userData) {
           localStorage.setItem("userData", JSON.stringify(userData.data.data));
           dispatch(login(userData.data.data));

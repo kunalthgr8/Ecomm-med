@@ -4,93 +4,31 @@ import { IoHome } from "react-icons/io5";
 import { AiOutlineProduct } from "react-icons/ai";
 import { IoMdCart } from "react-icons/io";
 import { BiSolidOffer } from "react-icons/bi";
-import { MdDashboard } from "react-icons/md";
-import { MdDomainAdd } from "react-icons/md";
-import { MdOutlineContactSupport } from "react-icons/md";
+import { MdDashboard, MdDomainAdd, MdOutlineContactSupport } from "react-icons/md";
 import { BiLogOut, BiLogIn } from "react-icons/bi";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../store/auth/authSlice";
 import authService from "../../appwrite/auth";
 
-const navItems = [
+const NAV_ITEMS = [
   { name: "Home", slug: "/", icon: IoHome, color: "text-nav-white" },
-  {
-    name: "Products",
-    slug: "/products",
-    icon: AiOutlineProduct,
-    color: "text-nav-white",
-  },
+  { name: "Products", slug: "/products", icon: AiOutlineProduct, color: "text-nav-white" },
   { name: "Cart", slug: "/cart", icon: IoMdCart, color: "text-nav-white" },
-  {
-    name: "Offers",
-    slug: "/offers",
-    icon: BiSolidOffer,
-    color: "text-nav-white",
-  },
-  {
-    name: "Contact Us",
-    slug: "/contact",
-    icon: MdOutlineContactSupport,
-    color: "text-nav-white",
-  },
-  {
-    name: "Logout",
-    slug: "/logout",
-    icon: BiLogOut,
-    color: "text-logout-color",
-    requiresAuth: true,
-  },
-  {
-    name: "Login/Register",
-    slug: "/login",
-    icon: BiLogIn,
-    color: "text-logout-color",
-    requiresAuth: false,
-  },
+  { name: "Offers", slug: "/offers", icon: BiSolidOffer, color: "text-nav-white" },
+  { name: "Contact Us", slug: "/contact", icon: MdOutlineContactSupport, color: "text-nav-white" },
+  { name: "Logout", slug: "/logout", icon: BiLogOut, color: "text-logout-color", requiresAuth: true },
+  { name: "Login/Register", slug: "/login", icon: BiLogIn, color: "text-logout-color", requiresAuth: false },
 ];
 
-const adminNavItems = [
-  {
-    name: "Dashboard",
-    slug: "/",
-    icon: MdDashboard,
-    color: "text-nav-white",
-  },
-  {
-    name: "My Products",
-    slug: "/getAdminProducts",
-    icon: AiOutlineProduct,
-    color: "text-nav-white",
-  },
-  {
-    name: "Add Product",
-    slug: "/addproduct",
-    icon: MdDomainAdd,
-    color: "text-nav-white",
-  },
-  {
-    name: "Customers",
-    slug: "/contact",
-    icon: MdOutlineContactSupport,
-    color: "text-nav-white",
-  },
-  {
-    name: "Contact Info",
-    slug: "/contact",
-    icon: MdOutlineContactSupport,
-    color: "text-nav-white",
-  },
-  {
-    name: "Logout",
-    slug: "/logout",
-    icon: BiLogOut,
-    color: "text-logout-color",
-    requiresAuth: true,
-  },
+const ADMIN_NAV_ITEMS = [
+  { name: "Dashboard", slug: "/", icon: MdDashboard, color: "text-nav-white" },
+  { name: "My Products", slug: "/getAdminProducts", icon: AiOutlineProduct, color: "text-nav-white" },
+  { name: "Add Product", slug: "/addproduct", icon: MdDomainAdd, color: "text-nav-white" },
+  { name: "Customers", slug: "/customers", icon: MdOutlineContactSupport, color: "text-nav-white" },
+  { name: "Contact Info", slug: "/contact", icon: MdOutlineContactSupport, color: "text-nav-white" },
+  { name: "Logout", slug: "/logout", icon: BiLogOut, color: "text-logout-color", requiresAuth: true },
 ];
-
-// In your render method, replace `navItems.map` with `filteredNavItems.map`
 
 const NavItem = React.memo(({ item, isActive, onClick, totalItemsInCart }) => (
   <li
@@ -101,9 +39,7 @@ const NavItem = React.memo(({ item, isActive, onClick, totalItemsInCart }) => (
     aria-current={isActive ? "page" : undefined}
   >
     <item.icon className="mr-2" />
-    {item.name === "Cart"
-      ? `${item.name} ${totalItemsInCart || ""}`
-      : item.name}
+    {item.name === "Cart" ? `${item.name} ${totalItemsInCart || ""}` : item.name}
   </li>
 ));
 
@@ -114,11 +50,11 @@ const SideBar = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const roleType = useSelector((state) => state.auth.userData);
   const isAdmin = roleType?.role === "admin" || false;
-  const filteredNavItems = isAdmin ? adminNavItems : navItems;
+  const filteredNavItems = isAdmin ? ADMIN_NAV_ITEMS : NAV_ITEMS;
   const totalItemsInCart = useSelector((state) => state.cart.length);
 
   const logoutHandler = useCallback(async () => {
-    const response = await authService.logout();
+    await authService.logout();
     dispatch(logout());
     navigate("/login");
   }, [dispatch, navigate]);

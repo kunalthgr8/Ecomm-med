@@ -10,7 +10,6 @@ function GetAdminProducts() {
     try {
       const response = await productService.getAdminProducts();
       setProducts(response);
-      console.log("response", response);
     } catch (error) {
       console.log("error", error);
     }

@@ -8,6 +8,12 @@ function Header() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const name = useSelector((state) => state.auth.userData?.fullname);
 
+  const capitalizeName = (name) =>
+    name
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
   return (
     <div className="flex w-full justify-evenly mt-4">
       <div className="w-2/3 justify-center text-center self-center">
@@ -17,7 +23,7 @@ function Header() {
         <Link to="/user">
           <img width="48" height="48" src={Man} alt="user" />
           {isAuthenticated ? (
-            <p>{name?.split(" ")[0]}</p>
+            <p>{capitalizeName(name?.split(" ")[0])}</p>
           ) : (
             <button>User</button>
           )}

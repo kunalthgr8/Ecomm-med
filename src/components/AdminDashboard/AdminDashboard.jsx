@@ -19,6 +19,7 @@ function InfoCard({ title, value }) {
 function AdminDashboard() {
   const { userData } = useSelector((state) => state.auth);
   const userRole = userData?.role === "admin" || false;
+  const [totalProfit, setTotalProfit] = useState(0);
   const [dashboardData, setDashboardData] = useState({
     totalProducts: 0,
     totalCustomers: 0,
@@ -34,8 +35,15 @@ function AdminDashboard() {
         ]);
 
         if (productResponse) {
-          console.log("productResponse", productResponse);
-          const totalCustomers = productResponse.reduce((total, product) => total + product.customers, 0);
+          const totalCustomers = productResponse.reduce(
+            (total, product) => total + product.customers,
+            0
+          );
+          const Profit = productResponse.reduce(
+            (total, product) => total + product.totalProfit,
+            0
+          );
+          setTotalProfit((prevData) => prevData + Profit);
           setDashboardData((prevData) => ({
             ...prevData,
             totalProducts: productResponse.length,
@@ -44,7 +52,6 @@ function AdminDashboard() {
         }
 
         if (userResponse) {
-          console.log("userResponse", userResponse);
           setDashboardData((prevData) => ({
             ...prevData,
             totalOrders: userResponse.data.data.orders,
@@ -65,7 +72,7 @@ function AdminDashboard() {
       {userRole && (
         <div className="flex flex-col justify-center self-center w-3/4">
           <div className="flex flex-col justify-center self-center w-full shadow-xl text-center bg-button-color border-2 border-none rounded-lg p-4 text-nav-white font-bold tracking-wider text-lg">
-            Total Earned : Rs. 1000
+            Total Earned : Rs. {totalProfit}
           </div>
           <div className="flex justify-center self-center gap-10 mt-14 w-full">
             <InfoCard title="Total Customers" value={totalCustomers} />

@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 function CartCard({ qty, product, productQty}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log("product", productQty);
   const handleRemove = (productId) => {
     dispatch(removeFromCart(productId));
   }
@@ -35,21 +34,22 @@ function CartCard({ qty, product, productQty}) {
       >
         <div className="flex justify-center self-center">
           <img
-            className="rounded-xl w-[150px]"
+            className="rounded-xl w-[150px] cursor-pointer"
             src={product.image}
             alt={product.title}
+            onClick={()=> navigate(`/product/${product._id}`)}
           />
         </div>
         <div className="flex flex-col w-full pl-8">
-          <div className="flex justify-between">
-            <h1 className="font-semibold text-nav-color text-lg tracking-wide">
+          <div className="flex justify-between" >
+            <h1 className="font-semibold text-nav-color text-lg tracking-wide cursor-pointer" onClick={()=> navigate(`/product/${product._id}`)} >
               {product.title}
             </h1>
             <button className="text-xl" onClick={()=>handleRemove(product._id)}>
               <MdDeleteOutline />
             </button>
           </div>
-          <div>
+          <div className="cursor-pointer" onClick={()=> navigate(`/product/${product._id}`)}>
             <p className="text-sm text-black-heading mt-4 w-4/5 font-medium">
               {product.description.substring(0, 100)}
             </p>

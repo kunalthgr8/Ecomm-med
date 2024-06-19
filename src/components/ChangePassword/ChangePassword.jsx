@@ -43,7 +43,6 @@ function ChangePassword() {
       }, 1000);
       setError("");
     }
-    console.log(resp);
   };
 
   return (

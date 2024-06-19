@@ -69,7 +69,6 @@ export class ProductService {
   async addProduct(data) {
     try {
       const accessToken = Cookies.get("accessToken");
-      console.log("data infunction", data);
       const response = await axios.post(
         "http://localhost:8000/api/v1/products/createProduct",
         data,
@@ -79,7 +78,6 @@ export class ProductService {
           },
         }
       );
-      console.log("response", response);
       return response.data.data;
     } catch (error) {
       throw error;
@@ -88,11 +86,9 @@ export class ProductService {
 
   async getAllCategories() {
     try {
-      console.log("inside get all categories");
       const response = await axios.get(
         "http://localhost:8000/api/v1/products/categories"
       );
-      console.log("response of categories", response);
       return response.data.data;
     } catch (error) {
       throw error;
@@ -110,7 +106,6 @@ export class ProductService {
           },
         }
       );
-      console.log("response of admin products", response);
       return response.data.data;
     } catch (error) {
       throw error;
@@ -120,7 +115,6 @@ export class ProductService {
   async updateProduct(data, id) {
     try {
       const accessToken = Cookies.get("accessToken");
-      console.log("data infunction", data);
       const response = await axios.put(
         `http://localhost:8000/api/v1/products/productUpdate/${id}`,
         data,
@@ -130,7 +124,6 @@ export class ProductService {
           },
         }
       );
-      console.log("response of updated Product", response);
       return response.data.data;
     } catch (error) {
       throw error;
@@ -148,7 +141,6 @@ export class ProductService {
           },
         }
       );
-      console.log("response of deleted Product", response);
       return response;
     } catch (error) {
       throw error;
@@ -166,7 +158,6 @@ export class ProductService {
           },
         }
       );
-      console.log(response);
     } catch (error) {
       throw error;
     }

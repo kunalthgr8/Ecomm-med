@@ -60,7 +60,6 @@ const AdminProduct = () => {
         if (resp.status === 204) {
           navigate("/getAdminProducts");
         }
-        console.log("Product deleted", resp);
       } catch (error) {
         console.log("Failed to delete product", error);
       }
@@ -69,7 +68,6 @@ const AdminProduct = () => {
     }
   };
   const saveTheProductInfo = async () => {
-    console.log(data);
     try {
       const response = await productService.updateProduct(data, id);
       setProduct(response);

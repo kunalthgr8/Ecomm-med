@@ -8,7 +8,7 @@ import {
   updateQty,
   removeFromCart,
 } from "../../store/cart/cartSlice";
-import { Button, Input } from "../index";
+import { Button, Input, Loader } from "../index";
 import Man from "../../assets/man.png";
 import ReactStarsRating from "react-awesome-stars-rating";
 
@@ -22,7 +22,6 @@ const Product = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.userData);
-  console.log("product user", user)
   const [reviewDataByUser, setReviewDataByUser] = useState({
     comment: "",
     rating: null,
@@ -116,9 +115,11 @@ const Product = () => {
 
   const deleteReview = async (reviewId, productId) => {
     try {
-      const resp = await productService.deleteProductReview(productId, reviewId);
+      const resp = await productService.deleteProductReview(
+        productId,
+        reviewId
+      );
       fetchProductData();
-      console.log(resp);
     } catch (error) {
       console.log(error);
     }
@@ -292,7 +293,7 @@ const Product = () => {
                       <div className="flex justify-between">
                         {review.comment}
                         {review.user}
-                        {(review.user === user._id) && (
+                        {review.user === user._id && (
                           <p
                             onClick={() =>
                               deleteReview(review._id, product._id)
@@ -371,7 +372,9 @@ const Product = () => {
           </div>
         </div>
       ) : (
-        <div>Loading...</div>
+        <div className="flex justify-center self-center gap-10 w-full">
+          <Loader />
+        </div>
       )}
     </>
   );

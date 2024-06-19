@@ -37,9 +37,9 @@ function Card({ className, prod }) {
 
   const handleIncrement = () => {
     const newQty = qty + 1;
-    if (newQty > product.stock) {
-      setQty(product.stock);
-      dispatch(updateQty({ id: product._id, qty: product.stock }));
+    if (newQty > prod.stock) {
+      setQty(prod.stock);
+      dispatch(updateQty({ id: prod._id, qty: prod.stock }));
       return;
     }
     setQty(newQty);

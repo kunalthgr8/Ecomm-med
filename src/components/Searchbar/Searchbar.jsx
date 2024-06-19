@@ -10,7 +10,6 @@ const Searchbar = () => {
   const dispatch = useDispatch();
   function search() {
     navigate("/products");
-    console.log(item);
   }
   const location = useLocation();
 

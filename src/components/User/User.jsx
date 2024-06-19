@@ -13,7 +13,6 @@ function User() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const userData = useSelector((state) => state.auth.userData);
   const isAdmin = userData?.role === "admin";
-  console.log("User :: userData", userData);
   const [editAbleUser, setEditAbleUser] = React.useState(false);
   const [editAbleLocationUser, setEditAbleLocationUser] = React.useState(false);
   const [data, setData] = React.useState({
@@ -43,7 +42,6 @@ function User() {
       const user = await authService.updateUserLocationDetails(dataLocation);
       if (user) {
         const userData = await authService.getCurrentUser();
-        console.log("User :: saveButtonHandler :: userData", userData);
         if (userData) {
           localStorage.setItem("userData", JSON.stringify(userData.data.data));
           dispatch(login(userData.data.data));
@@ -71,7 +69,6 @@ function User() {
       const user = await authService.changeUserDetails(data);
       if (user) {
         const userData = await authService.getCurrentUser();
-        console.log("User :: saveButtonHandler :: userData", userData);
         if (userData) {
           localStorage.setItem("userData", JSON.stringify(userData.data.data));
           dispatch(login(userData.data.data));
@@ -104,7 +101,6 @@ function User() {
   const makeaSeller = async () => {
     try {
       const response  = await authService.updateUserToSeller();
-      console.log("User :: makeaSeller :: response", response);
       dispatch(login(response.data.data))
       navigate("/");
     } catch (error) {

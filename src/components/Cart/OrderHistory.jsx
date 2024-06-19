@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import orderService from "../../appwrite/order";
 import Empty from "../../assets/empty.svg";
+import { useNavigate } from "react-router-dom";
 
 function OrderHistory() {
   const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchHistory = async () => {
       try {
         const resp = await orderService.getMyOrders();
-        console.log(resp.data.data);
+
         setOrders(resp.data.data);
       } catch (error) {
         console.log(error);
@@ -32,7 +34,10 @@ function OrderHistory() {
                 Price: {order.totalPrice}
               </div>
               {order.orderItems.map((item) => (
-                <div className="flex flex-row justify-center self-center w-3/4 border-2 border-nav-color rounded-lg bg-nav-white">
+                <div
+                  onClick={() => navigate(`/product/${item.product}`)}
+                  className="flex flex-row justify-center self-center w-3/4 border-2 border-nav-color rounded-lg bg-nav-white"
+                >
                   <div className="flex justify-center self-center m-auto">
                     <img
                       src={item.image}

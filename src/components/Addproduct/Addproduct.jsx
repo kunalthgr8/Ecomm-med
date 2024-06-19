@@ -39,11 +39,9 @@ function AddProduct() {
       if(response.name === data.name){
         navigate("/getAdminProducts");
       }
-      console.log("New product added response",response);
     } catch (error) {
       throw error;
     }
-    console.log(data);
   };
 
   return (

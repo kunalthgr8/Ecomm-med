@@ -31,10 +31,10 @@ function Products() {
           {status === STATUSES.IDLE && (
             <div className="flex flex-row flex-wrap justify-center self-center gap-10 w-full">
               {products.map((product) => (
-                <div key={product._id} className="w-[230px] h-[285px]">
+                <div key={product._id} className="w-[230px] h-[285px] shadow-xl">
                   <Card
                     prod={product}
-                    className="border-2 border-nav-color hover:border-2 hover:border-text-green cursor-pointer"
+                    className="border-2 shadow-xl border-nav-color hover:border-2 hover:border-text-green cursor-pointer"
                   />
                 </div>
               ))}

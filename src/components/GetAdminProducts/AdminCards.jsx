@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 function AdminCard({ product: { _id, image, name, description, price, stock } }) {
   const navigate = useNavigate();
-  console.log(name, stock);
 
   const handleNavigate = useCallback(() => {
     navigate(`/adminproduct/${_id}`);
