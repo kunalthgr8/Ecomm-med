@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Button } from "../index";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addToCart,
-  updateQty,
-  removeFromCart,
-} from "../../store/cart/cartSlice";
+import { addToCart, updateQty, removeFromCart } from "../../store/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
 
 function Card({ className, prod }) {
@@ -14,39 +10,40 @@ function Card({ className, prod }) {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     const itemInCart = cart.find((item) => item.product._id === prod._id);
     if (itemInCart) {
-      if (!isInCart) setIsInCart(true);
-      if (qty !== itemInCart.qty) setQty(itemInCart.qty);
+      setIsInCart(true);
+      setQty(itemInCart.qty);
     } else {
-      if (isInCart) setIsInCart(false);
-      if (qty !== 0) setQty(0);
+      setIsInCart(false);
+      setQty(0);
     }
   }, [cart, prod._id]);
 
-  const handleSubmit = (id) => {
-    let item = cart.find((item) => item.product.id === id);
+  const handleSubmit = useCallback(() => {
+    const item = cart.find((item) => item.product._id === prod._id);
     if (item) {
       handleIncrement();
     } else {
       setIsInCart(true);
       dispatch(addToCart({ qty: 1, product: prod }));
     }
-  };
+  }, [cart, prod, dispatch]);
 
-  const handleIncrement = () => {
+  const handleIncrement = useCallback(() => {
     const newQty = qty + 1;
     if (newQty > prod.stock) {
       setQty(prod.stock);
       dispatch(updateQty({ id: prod._id, qty: prod.stock }));
-      return;
+    } else {
+      setQty(newQty);
+      dispatch(updateQty({ id: prod._id, qty: newQty }));
     }
-    setQty(newQty);
-    dispatch(updateQty({ id: prod._id, qty: newQty }));
-  };
+  }, [qty, prod, dispatch]);
 
-  const handleDecrement = () => {
+  const handleDecrement = useCallback(() => {
     if (qty > 1) {
       const newQty = qty - 1;
       setQty(newQty);
@@ -54,45 +51,29 @@ function Card({ className, prod }) {
     } else {
       dispatch(removeFromCart(prod._id));
     }
-  };
+  }, [qty, prod, dispatch]);
 
   return (
-    <div
-      className={`bg-nav-white w-full h-full grid gap-4 p-4 rounded-lg ${className}`}
-    >
-      <div
-        className="flex justify-center p-2"
-        onClick={() => navigate(`/product/${prod._id}`)}
-      >
-        <img
-          className="rounded-xl w-[70px] h-[80px]"
-          src={prod.image}
-          alt={prod.name}
-        />
+    <div className={`bg-nav-white w-full h-full grid gap-4 p-4 rounded-lg ${className}`}>
+      <div className="flex justify-center p-2" onClick={() => navigate(`/product/${prod._id}`)}>
+        <img className="rounded-xl w-[70px] h-[80px]" src={prod.image} alt={prod.name} />
       </div>
-      <div
-        className="flex flex-col items-center text-left"
-        onClick={() => navigate(`/product/${prod._id}`)}
-      >
+      <div className="flex flex-col items-center text-left" onClick={() => navigate(`/product/${prod._id}`)}>
         <h3 className="text-nav-color font-bold tracking-wider">
           {prod.name.substring(0, 20)}
         </h3>
         <p className="text-black-heading text-sm mt-2 font-semibold">
           ${prod.price}
         </p>
-        <p>
-          {prod.stock > 0 ? (
-            <></>
-          ) : (
-            <p className="text-sm text-logout-color font-bold mt-1">Out Of Stock</p>
-          )}
-        </p>
+        {prod.stock <= 0 && (
+          <p className="text-sm text-logout-color font-bold mt-1">Out Of Stock</p>
+        )}
       </div>
       {prod.stock > 0 && (
         <div className="w-full flex justify-center">
           {!isInCart ? (
             <Button
-              onClick={() => handleSubmit(prod._id)}
+              onClick={handleSubmit}
               className="bg-button-color w-full text-sm text-nav-white rounded-lg font-semibold transition-transform duration-400 hover:scale-110"
             >
               ADD TO CART

@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 function Products() {
   const dispatch = useDispatch();
   const products = useSelector(selectFilteredProducts);
-  // const products = useSelector(state => state.product.data);
   const status = useSelector(state => state.product.status);
 
   useEffect(() => {
@@ -19,13 +18,13 @@ function Products() {
       <div className="w-4/5 flex flex-wrap gap-2 m-10">
         <div className="w-full">
           {status === STATUSES.LOADING && (
-            <div className="flex justify-center self-center gap-10 w-full">
+            <div className="flex justify-center self-center w-full">
               <Loader />
             </div>
           )}
           {status === STATUSES.ERROR && (
-            <div className="flex justify-center self-center gap-10 w-full">
-              <h1>Something went Wrong !!</h1>
+            <div className="flex justify-center self-center w-full">
+              <h1>Something went wrong! Please try again later.</h1>
             </div>
           )}
           {status === STATUSES.IDLE && (
@@ -34,7 +33,7 @@ function Products() {
                 <div key={product._id} className="w-[230px] h-[285px] shadow-xl">
                   <Card
                     prod={product}
-                    className="border-2 shadow-xl border-nav-color hover:border-2 hover:border-text-green cursor-pointer"
+                    className="border-2 shadow-xl border-nav-color hover:border-text-green cursor-pointer"
                   />
                 </div>
               ))}
