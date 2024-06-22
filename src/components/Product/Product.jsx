@@ -133,18 +133,17 @@ const Product = () => {
             {/* Product details */}
             <div className="md:flex w-full">
               {/* Image and basic info */}
-              <div className="flex flex-col w-1/3">
-                <div className="h-50 w-50 md:h-50 md:w-50 rounded-2xl border-2 border-gray">
+              <div className="flex flex-col w-full md:w-1/3">
+                <div className="h-50 w-50 md:h-50 md:w-50 rounded-2xl border-2 border-gray flex justify-center self-center">
                   <img
                     src={product.image}
                     alt={product.name}
                     className="rounded-2xl"
                   />
                 </div>
-                <div className="h-24 w-72 flex justify-between"></div>
               </div>
               {/* Description and price */}
-              <div className="w-2/3 mx-auto md:px-20">
+              <div className=" w-4/5 mt-5 md:mt-0 md:w-2/3 mx-auto md:px-20">
                 <div className="top h-fit flex flex-col gap-2">
                   <div className="text-nav-color mt-2 text-l font-bold tracking-wide md:text-3xl sm:text-2xl">
                     {product.name}
@@ -190,7 +189,7 @@ const Product = () => {
                     </Button>
                   )
                 ) : (
-                  <div className="flex flex-row w-1/3 justify-center self-center bg-button-color text-nav-white font-semibold px-3 py-1 rounded-xl gap-2">
+                  <div className="flex flex-row w-2/3 lg:w-1/2 xl:w-1/3 justify-center self-center bg-button-color text-nav-white font-semibold px-3 py-1 rounded-xl gap-2">
                     <p
                       className="text-2xl cursor-pointer"
                       onClick={handleDecrement}
@@ -210,14 +209,14 @@ const Product = () => {
                 )}
               </div>
             </div>
-            <hr className="border-t-2" />
+            <hr className="border-t-2 mt-3" />
             {/* Product details */}
             <div className="flex flex-col mt-4 p-5">
               <div className="mb-4 text-xl font-bold text-nav-color">
                 Product Details
               </div>
-              <div className="w-full flex gap-5 justify-center self-center p-4">
-                <div className="w-1/2">
+              <div className="w-full flex flex-col sm:flex-row gap-1 sm:gap-5 justify-center self-center p-4">
+                <div className=" w-full sm:w-1/2">
                   <div className="flex justify-between p-1 pr-2 pl-2">
                     <div className="text-nav-color font-medium">Name</div>
                     <div className="text-text-green text-sm font-medium">
@@ -241,7 +240,7 @@ const Product = () => {
                     </div>
                   </div>
                 </div>
-                <div className="w-1/2">
+                <div className="w-full sm:w-1/2">
                   <div className="flex justify-between p-1 pr-2 pl-2">
                     <div className="text-nav-color font-medium">Price</div>
                     <div className="text-text-green text-sm font-medium">
@@ -363,7 +362,7 @@ const Product = () => {
                 <Button
                   width="flex justify-end"
                   onClick={() => setAddingComment(true)}
-                  className="bg-button-color w-1/4 text-sm text-nav-white rounded-lg font-semibold transition-transform duration-400 hover:scale-110"
+                  className="bg-button-color w-1/2 sm:w-1/4 text-sm text-nav-white rounded-lg font-semibold transition-transform duration-400 hover:scale-110"
                 >
                   Add a Review
                 </Button>

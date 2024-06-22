@@ -25,7 +25,7 @@ function OffersCard({code, imageSrc, description, validity}) {
   }, []);
 
   return (
-    <div className="w-[350px] flex flex-col self-center p-2 rounded-lg cursor-pointer bg-nav-white">
+    <div className=" w-[280px] lg:w-[350px] flex flex-col self-center p-2 rounded-lg cursor-pointer bg-nav-white">
       <div className="rounded-lg">
         <img className="w-50 rounded-lg" src={imageSrc} alt="OffersCard" />
       </div>

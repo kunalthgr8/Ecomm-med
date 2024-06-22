@@ -48,9 +48,9 @@ function ChangePassword() {
   return (
     <>
       <div className="flex flex-row w-full justify-center m-10 gap-10">
-        <div className="flex flex-col gap-5 w-2/3">
+        <div className="flex flex-col gap-5 w-4/5 lg:w-2/3">
           <h1>Change Password</h1>
-          <div className="flex flex-col w-4/5 justify-center bg-nav-white rounded-lg p-8 pb-4">
+          <div className="flex flex-col w-full lg:w-4/5 justify-center bg-nav-white rounded-lg p-8 pb-4">
             <div className="w-full flex flex-row">
               <div className="flex flex-col w-full gap-3">
                 <h1 className="text-sm text-heading-color font-semibold">

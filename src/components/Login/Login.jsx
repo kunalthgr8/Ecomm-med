@@ -31,16 +31,16 @@ const Login = () => {
   };
 
   return (
-    <div className="flex bg-nav-color mt-20 h-4/5 w-2/3 rounded-xl justify-center m-10 text-center self-center border-t-2 border-text-green">
-      <div className="w-1/2 flex flex-col justify-center gap-7 m-5">
+    <div className="flex flex-col md:flex-row bg-nav-color mt-10  w-4/5 md:w-2/3 rounded-xl justify-center md:m-10 text-center self-center border-t-2 border-text-green">
+      <div className=" w-full h-full pt-10 md:w-1/2 flex flex-col justify-center gap-2 md:gap-7 md:m-5">
         <Logo width="200px" height="200px" />
-        <h1 className="text-text-green mt-2 text-4xl md:text-3xl sm:text-2xl font-bold tracking-widest">
+        <h1 className="text-text-green mt-2  md:text-4xl sm:text-3xl font-bold tracking-widest">
           Aoushadhi
         </h1>
       </div>
       <div className="border border-nav-white mt-2 mb-2"></div>
-      <div className="w-1/2 flex flex-col justify-evenly gap-7 m-5">
-        <h2 className="text-nav-white mt-2 text-4xl md:text-3xl sm:text-2xl font-bold tracking-widest">
+      <div className=" w-4/5 h-full m-auto mt-10 md:w-1/2 flex flex-col justify-evenly gap-7 md:m-5">
+        <h2 className="text-nav-white mt-1 sm:mt-2 text-2xl md:text-2xl sm:text-2xl font-bold tracking-widest">
           LOGIN {error && <span className="text-red-500">{error}</span>}
         </h2>
         <form onSubmit={handleLogin} className="p-2 flex flex-col gap-3">
@@ -62,7 +62,7 @@ const Login = () => {
             Submit
           </Button>
         </form>
-        <div className="flex justify-evenly">
+        <div className="flex justify-evenly gap-2">
           <Link
             to="/signup"
             className="flex justify-evenly text-sm transition-transform duration-400 ease-out hover:ease-in transform hover:scale-110 text-nav-active hover:text-nav-white"

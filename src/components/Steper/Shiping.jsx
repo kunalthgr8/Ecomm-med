@@ -56,43 +56,43 @@ function Shiping() {
 
   return (
     <div className="flex flex-col justify-center self-center gap-5 w-full mt-10 mb-10  ">
-      <div className="flex flex-col w-4/5 justify-center m-auto bg-nav-white rounded-lg p-8 pb-4">
+      <div className="flex flex-col w-full md:w-4/5 justify-center m-auto bg-nav-white rounded-lg p-8 pb-4">
         <div className="w-full flex flex-row">
           <div className="flex flex-col w-1/2 gap-3">
-            <h1 className="text-sm text-heading-color font-semibold">
+            <h1 className="text-xs sm:text-sm text-heading-color font-semibold">
               ADDRESS INFORMATION{" "}
             </h1>
             <div className="flex flex-col p-3 gap-2">
               <div className="flex flex-col pb-3 gap-1">
-                <p className="text-sm font-medium text-button-color">ADDRESS</p>
+                <p className="text-xs sm:text-sm font-medium text-button-color">ADDRESS</p>
                 {editAbleLocationUser ? (
                   <Input
                     type="text"
                     name="address"
                     value={dataLocation.address}
                     placeholder="Address"
-                    className="text-sm font-medium text-heading-color border-b border-text-heading"
+                    className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading"
                     onChange={handleChange}
                   />
                 ) : (
-                  <p className="text-sm font-medium text-heading-color border-b border-text-heading">
+                  <p className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading">
                     {dataLocation.address}
                   </p>
                 )}
               </div>
               <div className="flex flex-col pb-3 gap-1">
-                <p className="text-sm font-medium text-button-color">CITY</p>
+                <p className="text-xs sm:text-sm font-medium text-button-color">CITY</p>
                 {editAbleLocationUser ? (
                   <Input
                     type="text"
                     name="city"
                     value={dataLocation.city}
                     placeholder="City"
-                    className="text-sm font-medium text-heading-color border-b border-text-heading"
+                    className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading"
                     onChange={handleChange}
                   />
                 ) : (
-                  <p className="text-sm font-medium text-heading-color border-b border-text-heading">
+                  <p className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading">
                     {dataLocation.city}
                   </p>
                 )}
@@ -100,12 +100,12 @@ function Shiping() {
             </div>
           </div>
           <div className="flex flex-col w-1/2 gap-3">
-            <h1 className="text-sm text-heading-color font-semibold">
+            <h1 className="text-xs sm:text-sm text-heading-color font-semibold">
               LOCATION INFORMATION{" "}
             </h1>
             <div className="flex flex-col p-3 gap-2">
               <div className="flex flex-col pb-3 gap-1">
-                <p className="text-sm font-medium text-button-color">
+                <p className="text-xs sm:text-sm font-medium text-button-color">
                   PIN CODE
                 </p>
                 {editAbleLocationUser ? (
@@ -114,17 +114,17 @@ function Shiping() {
                     name="pincode"
                     value={dataLocation.pincode}
                     placeholder="PIN Code"
-                    className="text-sm font-medium text-heading-color border-b border-text-heading"
+                    className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading"
                     onChange={handleChange}
                   />
                 ) : (
-                  <p className="text-sm font-medium text-heading-color border-b border-text-heading">
+                  <p className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading">
                     {dataLocation.pincode}
                   </p>
                 )}
               </div>
               <div className="flex flex-col pb-3 gap-1">
-                <p className="text-sm font-medium text-button-color">
+                <p className="text-xs sm:text-sm font-medium text-button-color">
                   DISTRICT
                 </p>
                 {editAbleLocationUser ? (
@@ -133,11 +133,11 @@ function Shiping() {
                     name="district"
                     value={dataLocation.district}
                     placeholder="District"
-                    className="text-sm font-medium text-heading-color border-b border-text-heading"
+                    className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading"
                     onChange={handleChange}
                   />
                 ) : (
-                  <p className="text-sm font-medium text-heading-color border-b border-text-heading">
+                  <p className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading">
                     {dataLocation.district}
                   </p>
                 )}
@@ -148,7 +148,7 @@ function Shiping() {
         <div className="w-full text-right">
         <Button
             width="flex justify-end"
-            className="bg-button-color flex justify-center self-center gap-1 px-4 text-center rounded-lg text-nav-white"
+            className="bg-button-color flex text-xs sm:text-sm justify-center self-center gap-1 px-4 text-center rounded-lg text-nav-white"
             onClick={
               editAbleLocationUser ? saveButtonLocationHandler : () => setEditAbleLocationUser(true)
             }

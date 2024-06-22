@@ -11,22 +11,38 @@ function HomeCard() {
   const status = useSelector((state) => state.product.status);
   const len = products.length;
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [width, setWidth] = useState(window.innerWidth);
+  const breakpoint1 = 1217;
+  const breakpoint2 = 815;
+  const breakpoint3 = 580;
+  const numberOfSlides = width < breakpoint3 ? 1 : width < breakpoint2 ? 2 : width < breakpoint1 ? 3 : 4;
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const slicedProducts = useMemo(
-    () => products.slice(currentIndex, currentIndex + 4),
-    [currentIndex, products]
+    () => products.slice(currentIndex, currentIndex + numberOfSlides),
+    [currentIndex, products, numberOfSlides]
   );
 
   const gotoNextSlide = () => {
-    setCurrentIndex((prevIdx) => (prevIdx === len - 4 ? 0 : prevIdx + 1));
+    setCurrentIndex((prevIdx) =>
+      prevIdx + numberOfSlides >= len ? 0 : prevIdx + numberOfSlides
+    );
   };
 
   const gotoPrevSlide = () => {
-    setCurrentIndex((prevIdx) => (prevIdx === 0 ? len - 4 : prevIdx - 1));
+    setCurrentIndex((prevIdx) =>
+      prevIdx === 0 ? len - numberOfSlides : prevIdx - numberOfSlides
+    );
   };
 
   return (

@@ -1,0 +1,11 @@
+/* Add these styles to your CSS file */
+.fixed {
+    position: fixed;
+    width: 250px; /* Adjust as needed */
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #333; /* Adjust as needed */
+    z-index: 1000; /* Ensure it overlays other content */
+  }
+  

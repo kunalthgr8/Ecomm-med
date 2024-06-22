@@ -5,11 +5,11 @@ import authService from "../../appwrite/auth";
 
 function InfoCard({ title, value }) {
   return (
-    <div className="bg-nav-color shadow-xl text-nav-white w-1/4 h-[150px] rounded-lg flex flex-col justify-evenly self-center">
-      <div className="text-center font-bold text-lg tracking-wider">
+    <div className="bg-nav-color shadow-xl text-nav-white w-2/3 md:w-1/3 lg:w-1/4 h-[150px] rounded-lg flex flex-col justify-evenly self-center">
+      <div className="text-center font-bold text-sm sm:text-lg tracking-wider">
         {title}
       </div>
-      <div className="text-center font-medium text-base tracking-wide">
+      <div className="text-center font-medium text-sm sm:text-base tracking-wide">
         {value}
       </div>
     </div>
@@ -70,11 +70,11 @@ function AdminDashboard() {
   return (
     <>
       {userRole && (
-        <div className="flex flex-col justify-center self-center w-3/4">
+        <div className="flex flex-col justify-center self-center w-4/5 md:w-3/4">
           <div className="flex flex-col justify-center self-center w-full shadow-xl text-center bg-button-color border-2 border-none rounded-lg p-4 text-nav-white font-bold tracking-wider text-lg">
             Total Earned : Rs. {totalProfit}
           </div>
-          <div className="flex justify-center self-center gap-10 mt-14 w-full">
+          <div className="flex flex-col sm:flex-row justify-center self-center gap-10 mt-14 w-full">
             <InfoCard title="Total Customers" value={totalCustomers} />
             <InfoCard title="Total Orders" value={totalOrders} />
             <InfoCard title="Total Products" value={totalProducts} />

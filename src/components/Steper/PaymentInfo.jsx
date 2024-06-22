@@ -54,7 +54,7 @@ function PaymentInfo() {
   return (
     <Btn
       onClick={handleSubmit}
-      className="bg-button-color text-nav-white font-semibold px-4 py-2 rounded-lg mt-4 transition duration-400 ease-out hover:ease-in transform hover:scale-110"
+      className="bg-button-color text-xs sm:text-sm text-nav-white font-semibold px-4 py-2 rounded-lg mt-4 transition duration-400 ease-out hover:ease-in transform hover:scale-110"
     >
       Proceed Checkout
     </Btn>

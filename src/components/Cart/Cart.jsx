@@ -15,8 +15,8 @@ function Cart() {
   return (
     <div className="flex flex-col items-center w-full">
       <Button
-        width="flex justify-center w-1/2"
-        className="bg-button-color w-1/3 text-sm text-nav-white rounded-lg font-semibold transition-transform duration-400 hover:scale-110"
+        width="flex justify-center w-full sm:w-3/4 md:w-1/2"
+        className="bg-button-color w-1/2 md:w-1/3 text-sm text-nav-white rounded-lg font-semibold transition-transform duration-400 hover:scale-110"
         onClick={getOrders}
       >
         {" "}
@@ -30,8 +30,8 @@ function Cart() {
           </h1>
         </div>
       ) : (
-        <div className="flex flex-row w-full mt-10">
-          <div className="w-2/3 p-4 flex flex-col items-center">
+        <div className="flex flex-col justify-center self-center lg:flex-row w-full mt-10">
+          <div className=" w-full lg:w-2/3 p-4 flex flex-col items-center">
             <h1 className="text-lg text-black-heading font-bold tracking-wider m-3 w-5/6">
               Order Summary
             </h1>
@@ -44,7 +44,7 @@ function Cart() {
               />
             ))}
           </div>
-          <div className="flex flex-col pt-4 w-1/3">
+          <div className="flex flex-col pt-4 w-3/4 m-auto lg:w-1/3">
             <Billing />
           </div>
         </div>

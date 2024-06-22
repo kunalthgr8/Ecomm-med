@@ -119,35 +119,35 @@ function User() {
   return (
     <div className="flex flex-row w-full justify-center m-10 gap-10">
       {isAuthenticated ? (
-        <>
-          <div className="w-1/3 flex flex-row bg-nav-white h-[120px] rounded-lg p-4 gap-2">
+        <div className="flex flex-col md:flex-row md:justify-evenly w-full gap-10">
+          <div className=" w-3/5 md:w-2/5 lg:w-1/3 flex flex-row bg-nav-white h-[120px] rounded-lg p-4 gap-2">
             <div className="flex justify-center self-center w-1/3">
               <img width="80" height="80" src={Man} alt="user" />
             </div>
             <div className="flex flex-col gap-1">
-              <h1 className="font-semibold text-nav-color text-xl">
+              <h1 className="font-semibold text-nav-color text-base sm:text-xl">
                 {fullname}
               </h1>
-              <p className="text-black-heading text-sm italic">{data.email}</p>
+              <p className="text-black-heading text-xs sm:text-sm italic">{data.email}</p>
               <p
-                className="text-nav-color font-semibold cursor-pointer text-sm italic"
+                className="text-nav-color font-semibold cursor-pointer text-xs sm:text-sm italic"
                 onClick={() => navigate("/changePassword")}
               >
                 Change Password
               </p>
-             { !isAdmin && <p className="text-logout-color text-sm cursor-pointer italic font-medium" onClick={makeaSeller}>Become a Seller</p>}
+             { !isAdmin && <p className="text-logout-color text-xs sm:text-sm cursor-pointer italic font-medium" onClick={makeaSeller}>Become a Seller</p>}
             </div>
           </div>
-          <div className="flex flex-col gap-5 w-2/3">
-            <div className="flex flex-col w-4/5 justify-center bg-nav-white rounded-lg p-8 pb-4">
+          <div className="flex flex-col gap-5 w-full md:w-3/4 xl:w-2/3">
+            <div className="flex flex-col w-full xl:w-4/5 justify-center bg-nav-white rounded-lg p-8 pb-4">
               <div className="w-full flex flex-row">
                 <div className="flex flex-col w-1/2 gap-3">
-                  <h1 className="text-sm text-heading-color font-semibold">
+                  <h1 className="text-xs sm:text-sm text-heading-color font-semibold">
                     LOGIN INFORMATION
                   </h1>
                   <div className="flex flex-col p-3 gap-2">
                     <div className="flex flex-col pb-3 gap-1">
-                      <p className="text-sm font-medium text-button-color">
+                      <p className="text-xs sm:text-sm font-medium text-button-color">
                         EMAIL
                       </p>
                       {editAbleUser ? (
@@ -156,7 +156,7 @@ function User() {
                           name="email"
                           value={data.email}
                           placeholder="Email"
-                          className="text-sm font-medium text-heading-color border-b border-text-heading"
+                          className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading"
                           onChange={handleChange}
                         />
                       ) : (
@@ -166,7 +166,7 @@ function User() {
                       )}
                     </div>
                     <div className="flex flex-col pb-3 gap-1">
-                      <p className="text-sm font-medium text-button-color">
+                      <p className="text-xs sm:text-sm font-medium text-button-color">
                         MOBILE NUMBER
                       </p>
                       {editAbleUser ? (
@@ -175,7 +175,7 @@ function User() {
                           name="phoneNumber"
                           value={data.phoneNumber}
                           placeholder="Mobile Number"
-                          className="text-sm font-medium text-heading-color border-b border-text-heading"
+                          className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading"
                           onChange={handleChange}
                         />
                       ) : (
@@ -187,12 +187,12 @@ function User() {
                   </div>
                 </div>
                 <div className="flex flex-col w-1/2 gap-3">
-                  <h1 className="text-sm text-heading-color font-semibold">
+                  <h1 className="text-xs sm:text-sm text-heading-color font-semibold">
                     PERSONAL INFORMATION
                   </h1>
                   <div className="flex flex-col p-3 gap-2">
                     <div className="flex flex-col pb-3 gap-1">
-                      <p className="text-sm font-medium text-button-color">
+                      <p className="text-xs sm:text-sm font-medium text-button-color">
                         FULL NAME
                       </p>
                       {editAbleUser ? (
@@ -201,7 +201,7 @@ function User() {
                           name="fullname"
                           value={data.fullname}
                           placeholder="Full Name"
-                          className="text-sm font-medium text-heading-color border-b border-text-heading"
+                          className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading"
                           onChange={handleChange}
                         />
                       ) : (
@@ -211,7 +211,7 @@ function User() {
                       )}
                     </div>
                     <div className="flex flex-col pb-3 gap-1">
-                      <p className="text-sm font-medium text-button-color">
+                      <p className="text-xs sm:text-sm font-medium text-button-color">
                         GENDER
                       </p>
                       {editAbleUser ? (
@@ -220,7 +220,7 @@ function User() {
                           name="gender"
                           value={data.gender}
                           placeholder="Gender"
-                          className="text-sm font-medium text-heading-color border-b border-text-heading"
+                          className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading"
                           onChange={handleChange}
                         />
                       ) : (
@@ -235,7 +235,7 @@ function User() {
               <div className="w-full text-right">
                 <Button
                   width="flex justify-end"
-                  className="bg-button-color flex justify-center self-center gap-1 px-4 text-center rounded-lg text-nav-white"
+                  className="bg-button-color text-xs sm:text-sm flex justify-center self-center gap-1 px-4 text-center rounded-lg text-nav-white"
                   onClick={
                     editAbleUser
                       ? saveButtonHandler
@@ -247,15 +247,15 @@ function User() {
                 </Button>
               </div>
             </div>
-            <div className="flex flex-col w-4/5 justify-center bg-nav-white rounded-lg p-8 pb-4">
+            <div className="flex flex-col  w-full xl:w-4/5 justify-center bg-nav-white rounded-lg p-8 pb-4">
               <div className="w-full flex flex-row">
                 <div className="flex flex-col w-1/2 gap-3">
-                  <h1 className="text-sm text-heading-color font-semibold">
+                  <h1 className=" text-xs sm:text-sm text-heading-color font-semibold">
                     ADDRESS INFORMATION{" "}
                   </h1>
                   <div className="flex flex-col p-3 gap-2">
                     <div className="flex flex-col pb-3 gap-1">
-                      <p className="text-sm font-medium text-button-color">
+                      <p className="text-xs sm:text-sm font-medium text-button-color">
                         ADDRESS
                       </p>
                       {editAbleLocationUser ? (
@@ -264,17 +264,17 @@ function User() {
                           name="address"
                           value={dataLocation.address}
                           placeholder="Address"
-                          className="text-sm font-medium text-heading-color border-b border-text-heading"
+                          className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading"
                           onChange={handleChange2}
                         />
                       ) : (
-                        <p className="text-sm font-medium text-heading-color border-b border-text-heading">
+                        <p className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading">
                           {dataLocation.address}
                         </p>
                       )}
                     </div>
                     <div className="flex flex-col pb-3 gap-1">
-                      <p className="text-sm font-medium text-button-color">
+                      <p className="text-xs sm:text-sm font-medium text-button-color">
                         CITY
                       </p>
                       {editAbleLocationUser ? (
@@ -283,11 +283,11 @@ function User() {
                           name="city"
                           value={dataLocation.city}
                           placeholder="City"
-                          className="text-sm font-medium text-heading-color border-b border-text-heading"
+                          className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading"
                           onChange={handleChange2}
                         />
                       ) : (
-                        <p className="text-sm font-medium text-heading-color border-b border-text-heading">
+                        <p className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading">
                           {capitalizeName(dataLocation.city)}
                         </p>
                       )}
@@ -295,12 +295,12 @@ function User() {
                   </div>
                 </div>
                 <div className="flex flex-col w-1/2 gap-3">
-                  <h1 className="text-sm text-heading-color font-semibold">
+                  <h1 className="text-xs sm:text-sm text-heading-color font-semibold">
                     LOCATION INFORMATION{" "}
                   </h1>
                   <div className="flex flex-col p-3 gap-2">
                     <div className="flex flex-col pb-3 gap-1">
-                      <p className="text-sm font-medium text-button-color">
+                      <p className="text-xs sm:text-sm font-medium text-button-color">
                         PIN CODE
                       </p>
                       {editAbleLocationUser ? (
@@ -309,17 +309,17 @@ function User() {
                           name="pincode"
                           value={dataLocation.pincode}
                           placeholder="PIN Code"
-                          className="text-sm font-medium text-heading-color border-b border-text-heading"
+                          className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading"
                           onChange={handleChange2}
                         />
                       ) : (
-                        <p className="text-sm font-medium text-heading-color border-b border-text-heading">
+                        <p className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading">
                           {dataLocation.pincode}
                         </p>
                       )}
                     </div>
                     <div className="flex flex-col pb-3 gap-1">
-                      <p className="text-sm font-medium text-button-color">
+                      <p className="text-xs sm:text-sm font-medium text-button-color">
                         DISTRICT
                       </p>
                       {editAbleLocationUser ? (
@@ -328,11 +328,11 @@ function User() {
                           name="district"
                           value={dataLocation.district}
                           placeholder="District"
-                          className="text-sm font-medium text-heading-color border-b border-text-heading"
+                          className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading"
                           onChange={handleChange2}
                         />
                       ) : (
-                        <p className="text-sm font-medium text-heading-color border-b border-text-heading">
+                        <p className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading">
                           {capitalizeName(dataLocation.district)}
                         </p>
                       )}
@@ -343,7 +343,7 @@ function User() {
               <div className="w-full text-right">
                 <Button
                   width="flex justify-end"
-                  className="bg-button-color flex justify-center self-center gap-1 px-4 text-center rounded-lg text-nav-white"
+                  className="bg-button-color text-xs sm:text-sm flex justify-center self-center gap-1 px-4 text-center rounded-lg text-nav-white"
                   onClick={
                     editAbleLocationUser
                       ? saveButtonLocationHandler
@@ -356,7 +356,7 @@ function User() {
               </div>
             </div>
           </div>
-        </>
+        </div>
       ) : (
         <div className="w-1/3 flex flex-row bg-nav-white h-[120px] rounded-lg p-4 gap-2">
           <div className="flex justify-center self-center w-1/3">

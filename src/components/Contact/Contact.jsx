@@ -9,11 +9,11 @@ function Contact() {
     <>
       <div className="flex flex-col w-full m-10 h-full gap-5">
         <div>
-          <h1 className=" text-heading-color mt-2 text-4xl md:text-3xl sm:text-2xl font-bold ">
+          <h1 className=" text-heading-color mt-2 text-xl md:text-3xl sm:text-2xl font-bold ">
             Get In Touch
           </h1>
         </div>
-        <div className="w-2/3 flex flex-col justify-center self-center ">
+        <div className=" w-4/5  md:w-2/3 flex flex-col justify-center self-center ">
           <div className="p-5 border-2 rounded-3xl  border-nav-color bg-nav-white">
             <h1 className="text-nav-color mt-2 text-2xl md:text-2xl sm:text-2xl font-bold">
               Feedback

@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import productService from "../../appwrite/product";
 import { MdModeEdit } from "react-icons/md";
-import NoData from "../../assets/noData.svg"
-import { Button, Input, Loader } from "../index";
+import NoData from "../../assets/noData.svg";
+import { Button, Input } from "../index";
 import ReactStarsRating from "react-awesome-stars-rating";
 import { useNavigate } from "react-router-dom";
-import EmptyCart from "../../assets/empty.svg";
 
 const AdminProduct = () => {
   const { id } = useParams();
@@ -67,11 +66,12 @@ const AdminProduct = () => {
       return;
     }
   };
+
   const saveTheProductInfo = async () => {
     try {
       const response = await productService.updateProduct(data, id);
       setProduct(response);
-      navigate(`/adminproduct/${id}`)
+      navigate(`/adminproduct/${id}`);
     } catch (error) {
       console.log("Failed to save product data", error);
     }
@@ -85,18 +85,17 @@ const AdminProduct = () => {
             {/* Product details */}
             <div className="md:flex w-full">
               {/* Image and basic info */}
-              <div className="flex flex-col w-1/3">
-                <div className="h-50 w-50 md:h-50 md:w-50 rounded-2xl border-2 border-gray">
+              <div className="flex flex-col w-full md:w-1/3">
+                <div className="h-50 w-50 md:h-50 md:w-50 rounded-2xl border-2 border-gray flex justify-center self-center">
                   <img
                     src={product.image}
                     alt={product.name}
                     className="rounded-2xl"
                   />
                 </div>
-                <div className="h-24 w-72 flex justify-between"></div>
               </div>
               {/* Description and price */}
-              <div className="w-2/3 mx-auto md:px-20">
+              <div className="w-4/5 mt-5 md:mt-0 md:3/4  lg:w-2/3 mx-auto md:px-20">
                 <div className="top h-fit flex flex-col gap-2">
                   <div className="text-nav-color mt-2 text-l font-bold tracking-wide md:text-3xl sm:text-2xl">
                     {product.name}
@@ -131,26 +130,33 @@ const AdminProduct = () => {
                       {product.description}
                     </div>
                     <div className="text-text-green font-bold text-sm pl-1">
-                      <p>Category : {product.category}</p>
-                      <p>Stock : {product.stock === 0 ? (<p className="text-logout-color">Out Of Stock</p>) : product.stock}</p>
+                      <p>Category: {product.category}</p>
+                      <p>
+                        Stock:{" "}
+                        {product.stock === 0 ? (
+                          <span className="text-logout-color">Out Of Stock</span>
+                        ) : (
+                          product.stock
+                        )}
+                      </p>
                     </div>
                   </div>
                 </div>
                 <Button
                   onClick={deleteProduct}
-                  className="bg-logout-color w-1/3 text-sm text-nav-white rounded-lg font-semibold transition-transform duration-400 hover:scale-110"
+                  className="bg-logout-color w-1/2 lg:w-1/3 text-sm text-nav-white rounded-lg font-semibold transition-transform duration-400 hover:scale-110"
                 >
                   Delete Product
                 </Button>
               </div>
             </div>
-            <hr className="border-t-2" />
+            <hr className="border-t-2 mt-2" />
             {/* Product details */}
-            <div className="flex flex-col mt-4 p-5">
+            <div className="flex flex-col mt-4 p-2 md:p-5">
               <div className="mb-4 text-xl font-bold text-nav-color">
                 Update Details
               </div>
-              <div className="flex flex-col p-3 gap-2">
+              <div className="flex flex-col p-1  md:p-3 gap-2">
                 <div className="flex flex-col pb-3 gap-1">
                   <p className="text-sm font-medium text-button-color">
                     Product Name
@@ -246,20 +252,13 @@ const AdminProduct = () => {
         </div>
       ) : (
         <div className="flex flex-col items-center w-5/6 mt-10 h-full justify-center gap-9 self-center">
-          <img src={NoData} alt="Your Cart is Empty" width="300px" />
-          {/* <h1
-            className="text-xl text-black-heading font-bold tracking-widest m-3 cursor-pointer"
-            onClick={() => navigate("/addproduct")}
-          >
-            Add Products
-          </h1> */}
+          <img src={NoData} alt="No Data Available" width="300px" />
           <Button
             width="flex justify-end"
             className="bg-button-color flex justify-center self-center gap-1 px-4 text-center rounded-lg text-nav-white"
-            onClick={() => navigate("/addproduct")}
+            onClick={() => navigate("/getAdminProducts")}
           >
-            <MdModeEdit className="flex justify-center self-center" />
-            Add Products
+            Explore Products
           </Button>
         </div>
       )}

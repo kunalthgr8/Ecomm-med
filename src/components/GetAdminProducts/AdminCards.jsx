@@ -10,7 +10,7 @@ function AdminCard({ product: { _id, image, name, description, price, stock } })
 
   return (
     <div
-      className="bg-nav-white flex flex-row justify-center self-center rounded-xl m-3 p-4 border-2 border-nav-color w-5/6 h-[200px] cursor-pointer hover:shadow-xl transition duration-500 ease-in-out"
+      className="bg-nav-white flex flex-col sm:flex-row justify-center self-center rounded-xl m-3 p-2 md:p-4 border-2 border-nav-color w-5/6  cursor-pointer hover:shadow-xl transition duration-500 ease-in-out"
       onClick={handleNavigate}
     >
       <div className="flex justify-center self-center">
@@ -20,14 +20,14 @@ function AdminCard({ product: { _id, image, name, description, price, stock } })
           alt={name}
         />
       </div>
-      <div className="flex flex-col w-full pl-8">
+      <div className="flex flex-col w-full pl-8 mt-5 sm:mt-0">
         <div className="flex justify-between">
           <h1 className="font-semibold text-nav-color text-lg tracking-wide">
             {name}
           </h1>
         </div>
         <div>
-          <p className="text-sm text-black-heading mt-4 w-4/5 font-medium">
+          <p className="text-sm text-black-heading mt-4 w-full md:w-4/5 font-medium">
             {description.substring(0, 100)}
           </p>
         </div>

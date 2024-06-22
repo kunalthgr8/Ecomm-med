@@ -62,32 +62,32 @@ function CustomerInfo() {
   const fullname = capitalizeName(data.fullname);
   return (
     <div className="flex flex-col justify-center self-center gap-5 w-full mt-10 mb-10 ">
-      <div className="flex flex-col w-4/5 m-auto justify-center bg-nav-white rounded-lg p-8 pb-4">
+      <div className="flex flex-col w-full md:w-4/5 m-auto justify-center bg-nav-white rounded-lg p-8 pb-4">
         <div className="w-full flex flex-row">
           <div className="flex flex-col w-1/2 gap-3">
-            <h1 className="text-sm text-heading-color font-semibold">
+            <h1 className="text-xs sm:text-sm text-heading-color font-semibold">
               LOGIN INFORMATION
             </h1>
             <div className="flex flex-col p-3 gap-2">
               <div className="flex flex-col pb-3 gap-1">
-                <p className="text-sm font-medium text-button-color">EMAIL</p>
+                <p className="text-xs sm:text-sm font-medium text-button-color">EMAIL</p>
                 {editAbleUser ? (
                   <Input
                     type="email"
                     name="email"
                     value={data.email}
                     placeholder="Email"
-                    className="text-sm font-medium text-heading-color border-b border-text-heading"
+                    className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading"
                     onChange={handleChange}
                   />
                 ) : (
-                  <p className="text-sm font-medium text-heading-color border-b border-text-heading">
+                  <p className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading">
                     {data.email}
                   </p>
                 )}
               </div>
               <div className="flex flex-col pb-3 gap-1">
-                <p className="text-sm font-medium text-button-color">
+                <p className="text-xs sm:text-sm font-medium text-button-color">
                   MOBILE NUMBER
                 </p>
                 {editAbleUser ? (
@@ -96,11 +96,11 @@ function CustomerInfo() {
                     name="phoneNumber"
                     value={data.phoneNumber}
                     placeholder="Mobile Number"
-                    className="text-sm font-medium text-heading-color border-b border-text-heading"
+                    className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading"
                     onChange={handleChange}
                   />
                 ) : (
-                  <p className="text-sm font-medium text-heading-color border-b border-text-heading">
+                  <p className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading">
                     {data.phoneNumber}
                   </p>
                 )}
@@ -108,12 +108,12 @@ function CustomerInfo() {
             </div>
           </div>
           <div className="flex flex-col w-1/2 gap-3">
-            <h1 className="text-sm text-heading-color font-semibold">
+            <h1 className="text-xs sm:text-sm text-heading-color font-semibold">
               PERSONAL INFORMATION
             </h1>
             <div className="flex flex-col p-3 gap-2">
               <div className="flex flex-col pb-3 gap-1">
-                <p className="text-sm font-medium text-button-color">
+                <p className="text-xs sm:text-sm font-medium text-button-color">
                   FULL NAME
                 </p>
                 {editAbleUser ? (
@@ -122,28 +122,28 @@ function CustomerInfo() {
                     name="fullname"
                     value={data.fullname}
                     placeholder="Full Name"
-                    className="text-sm font-medium text-heading-color border-b border-text-heading"
+                    className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading"
                     onChange={handleChange}
                   />
                 ) : (
-                  <p className="text-sm font-medium text-heading-color border-b border-text-heading">
+                  <p className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading">
                     {data.fullname}
                   </p>
                 )}
               </div>
               <div className="flex flex-col pb-3 gap-1">
-                <p className="text-sm font-medium text-button-color">GENDER</p>
+                <p className="text-xs sm:text-sm font-medium text-button-color">GENDER</p>
                 {editAbleUser ? (
                   <Input
                     type="text"
                     name="gender"
                     value={data.gender}
                     placeholder="Gender"
-                    className="text-sm font-medium text-heading-color border-b border-text-heading"
+                    className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading"
                     onChange={handleChange}
                   />
                 ) : (
-                  <p className="text-sm font-medium text-heading-color border-b border-text-heading">
+                  <p className="text-xs sm:text-sm font-medium text-heading-color border-b border-text-heading">
                     {data.gender}
                   </p>
                 )}
@@ -154,7 +154,7 @@ function CustomerInfo() {
         <div className="w-full text-right">
           <Button
             width="flex justify-end"
-            className="bg-button-color flex justify-center self-center gap-1 px-4 text-center rounded-lg text-nav-white"
+            className="bg-button-color text-xs sm:text-sm flex justify-center self-center gap-1 px-4 text-center rounded-lg text-nav-white"
             onClick={
               editAbleUser ? saveButtonHandler : () => setEditAbleUser(true)
             }

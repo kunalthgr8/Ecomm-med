@@ -53,7 +53,7 @@ export default function HorizontalLinearStepper() {
   };
 
   return (
-    <div className="flex mt-20 h-4/5 w-2/3 justify-center m-10 text-center self-center">
+    <div className="flex mt-20 h-4/5 w-full md:w-4/5 lg:w-2/3 justify-center m-10 text-center self-center">
       <Box sx={{ width: "100%" }}>
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {

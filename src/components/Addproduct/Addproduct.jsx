@@ -47,7 +47,7 @@ function AddProduct() {
   return (
     <div className="w-4/5 flex flex-col mt-5 gap-5">
       <h1 className="font-bold text-xl tracking-wider text-nav-color">Add Products</h1>
-      <div className="flex flex-col w-4/5 mt-5 ml-10 justify-center bg-nav-white rounded-lg p-8 pb-4">
+      <div className="flex flex-col w-full lg:w-4/5 mt-5 ml-2 md:ml-5 lg:ml-10 justify-center bg-nav-white rounded-lg p-4 lg:p-8 pb-4">
         <div className="w-full flex flex-col">
           <div className="flex flex-col w-full gap-3 mb-5">
             <h1 className="text-sm text-heading-color font-semibold">

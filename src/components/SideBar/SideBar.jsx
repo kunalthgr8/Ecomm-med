@@ -61,7 +61,7 @@ const SideBar = () => {
 
   return (
     <div className="h-full pt-5 p-4 flex flex-col bg-nav-color">
-      <div className="mt-8 flex flex-col justify-center text-center gap-2">
+      <div className="mt-8 flex flex-col justify-evenly self-center text-center gap-2">
         <Link to="/">
           <Logo width="100px" height="100px" />
         </Link>

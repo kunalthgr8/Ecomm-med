@@ -30,7 +30,9 @@ function Filter() {
 
   const handlePriceChange = (range) => {
     const rangeString = JSON.stringify(range);
-    const newPrices = filters.price.some((p) => JSON.stringify(p) === rangeString)
+    const newPrices = filters.price.some(
+      (p) => JSON.stringify(p) === rangeString
+    )
       ? filters.price.filter((p) => JSON.stringify(p) !== rangeString)
       : [...filters.price, range];
 
@@ -38,42 +40,52 @@ function Filter() {
   };
 
   return (
-    <div className="bg-nav-white rounded-xl mt-10 mr-3 border border-nav-color flex self-center flex-col justify-center">
+    <div className="bg-nav-white rounded-xl ml-10 sm:ml-0 mt-5 sm:mt-10 mr-3 border border-nav-color w-3/4 sm:w-full flex self-center flex-col justify-center">
       <div className="text-xl text-nav-color font-bold p-4 tracking-wider">
         <h1>Filter</h1>
       </div>
-      <div className="p-4 pt-0 w-full">
-        <h1 className="text-base text-black-heading font-semibold tracking-wide">Category :</h1>
-        {filterOptions.map((category) => (
-          <div key={category} className="flex mt-2 gap-3 pl-2">
-            <input
-              type="checkbox"
-              checked={filters.category.includes(category)}
-              onChange={() => handleCategoryChange(category)}
-            />
-            <label className="text-sm">{category}</label>
-          </div>
-        ))}
-      </div>
-      <div className="p-4 pt-0 w-full">
-        <h1 className="text-base text-black-heading font-semibold tracking-wide">Price :</h1>
-        {[
-          [1, 99],
-          [100, 999],
-          [1000, Infinity],
-        ].map((range) => {
-          const rangeString = JSON.stringify(range);
-          return (
-            <div key={rangeString} className="flex mt-2 gap-3 pl-2">
+      <div className="flex flex-row sm:flex-col">
+        <div className="p-4 pt-0 w-full ">
+          <h1 className="text-base text-black-heading font-semibold tracking-wide">
+            Category :
+          </h1>
+          {filterOptions.map((category) => (
+            <div key={category} className="flex mt-2 gap-3 pl-2">
               <input
                 type="checkbox"
-                checked={filters.price.some((p) => JSON.stringify(p) === rangeString)}
-                onChange={() => handlePriceChange(range)}
+                checked={filters.category.includes(category)}
+                onChange={() => handleCategoryChange(category)}
               />
-              <label className="text-sm">{`$${range[0]}-${range[1] === Infinity ? '+' : range[1]}`}</label>
+              <label className="text-sm">{category}</label>
             </div>
-          );
-        })}
+          ))}
+        </div>
+        <div className="p-4 pt-0 w-full">
+          <h1 className="text-base text-black-heading font-semibold tracking-wide">
+            Price :
+          </h1>
+          {[
+            [1, 99],
+            [100, 999],
+            [1000, Infinity],
+          ].map((range) => {
+            const rangeString = JSON.stringify(range);
+            return (
+              <div key={rangeString} className="flex mt-2 gap-3 pl-2">
+                <input
+                  type="checkbox"
+                  checked={filters.price.some(
+                    (p) => JSON.stringify(p) === rangeString
+                  )}
+                  onChange={() => handlePriceChange(range)}
+                />
+                <label className="text-sm">{`$${range[0]}-${
+                  range[1] === Infinity ? "+" : range[1]
+                }`}</label>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
