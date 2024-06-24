@@ -42,9 +42,36 @@ export class OrderService {
           },
         }
       );
-      return response
+      return response;
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async payment(data) {
+    try {
+      console.log("Data in Order.js",data);
+      const accessToken = Cookies.get("accessToken");
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/orders/payment",
+        {
+          orderItems: data,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      console.log("Response in Order.js",response)
+      if (response.data.url) {
+        window.location.href = response.data.url;
+      } else {
+        console.error("Error: URL not found in response.");
+      }
+      return response;
+    } catch (error) {
+      throw error;
     }
   }
 }

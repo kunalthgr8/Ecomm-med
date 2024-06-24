@@ -5,6 +5,7 @@ import orderService from "../../appwrite/order";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../../store/cart/cartSlice";
+import axios from "axios";
 
 function PaymentInfo() {
   const dispatch = useDispatch();
@@ -21,10 +22,10 @@ function PaymentInfo() {
 
     const data = {
       orderItems,
-      paymentInfo: {
-        id: "payment_id_123", // Mock payment ID
-        status: "Completed", // Mock payment status
-      },
+      // paymentInfo: {
+      //   id: "payment_id_123", // Mock payment ID
+      //   status: "Completed", // Mock payment status
+      // },
       paidAt: new Date(),
       itemsPrice: orderItems.reduce(
         (total, item) => total + item.price * item.qty,
@@ -41,8 +42,19 @@ function PaymentInfo() {
         10,
       orderStatus: "Processing",
     };
+    let resp1;
 
     try {
+      resp1 = await orderService.payment(orderItems);
+    } catch (error) {
+      console.log(error);
+    }
+
+    try {
+      data.PaymentInfo = {
+        id: "payment_id_123", // Mock payment ID
+        status: "Completed", // Mock payment status
+      };
       const resp = await orderService.addNewProduct(data);
       dispatch(clearCart());
       navigate("/");
