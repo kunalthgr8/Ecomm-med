@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import conf from "../conf/conf.js";
 
 export class ProductService {
   constructor() {}
@@ -7,33 +8,39 @@ export class ProductService {
   async getProducts() {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/v1/products/products"
+        `${conf.backendUrl}/api/v1/products/products`
       );
       return response.data.data;
     } catch (error) {
-      throw error;
+      const errorMessage =
+        error.response?.data?.message || "Products Fetching failed";
+      throw new Error(errorMessage);
     }
   }
 
   async getProductById(id) {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/products/products/${id}`
+        `${conf.backendUrl}/api/v1/products/products/${id}`
       );
       return response.data.data;
     } catch (error) {
-      throw error;
+      const errorMessage =
+        error.response?.data?.message || "Product Fetching failed";
+      throw new Error(errorMessage);
     }
   }
 
   async getProductByReviewId(id) {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/products/products/reviews/${id}`
+        `${conf.backendUrl}/api/v1/products/products/reviews/${id}`
       );
       return response.data.data;
     } catch (error) {
-      throw error;
+      const errorMessage =
+        error.response?.data?.message || "Product Review Fetching failed";
+      throw new Error(errorMessage);
     }
   }
 
@@ -41,7 +48,7 @@ export class ProductService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.post(
-        `http://localhost:8000/api/v1/products/productReview/review/${id}`,
+        `${conf.backendUrl}/api/v1/products/productReview/review/${id}`,
         data,
         {
           headers: {
@@ -51,18 +58,22 @@ export class ProductService {
       );
       return response.data.data;
     } catch (error) {
-      throw error;
+      const errorMessage =
+        error.response?.data?.message || "Adding Review failed";
+      throw new Error(errorMessage);
     }
   }
 
   async searchProducts(query) {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/products/search?query=${query}`
+        `${conf.backendUrl}/api/v1/products/search?query=${query}`
       );
       return response.data.data;
     } catch (error) {
-      throw error;
+      const errorMessage =
+        error.response?.data?.message || "Searching Product failed";
+      throw new Error(errorMessage);
     }
   }
 
@@ -70,7 +81,7 @@ export class ProductService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.post(
-        "http://localhost:8000/api/v1/products/createProduct",
+        `${conf.backendUrl}/api/v1/products/createProduct`,
         data,
         {
           headers: {
@@ -80,18 +91,22 @@ export class ProductService {
       );
       return response.data.data;
     } catch (error) {
-      throw error;
+      const errorMessage =
+        error.response?.data?.message || "Adding New Product failed";
+      throw new Error(errorMessage);
     }
   }
 
   async getAllCategories() {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/v1/products/categories"
+        `${conf.backendUrl}/api/v1/products/categories`
       );
       return response.data.data;
     } catch (error) {
-      throw error;
+      const errorMessage =
+        error.response?.data?.message || "Fetching Category failed";
+      throw new Error(errorMessage);
     }
   }
 
@@ -99,7 +114,7 @@ export class ProductService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.get(
-        "http://localhost:8000/api/v1/products/adminProducts",
+        `${conf.backendUrl}/api/v1/products/adminProducts`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -108,7 +123,9 @@ export class ProductService {
       );
       return response.data.data;
     } catch (error) {
-      throw error;
+      const errorMessage =
+        error.response?.data?.message || "Get Admin Products failed";
+      throw new Error(errorMessage);
     }
   }
 
@@ -116,7 +133,7 @@ export class ProductService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.put(
-        `http://localhost:8000/api/v1/products/productUpdate/${id}`,
+        `${conf.backendUrl}/api/v1/products/productUpdate/${id}`,
         data,
         {
           headers: {
@@ -126,7 +143,9 @@ export class ProductService {
       );
       return response.data.data;
     } catch (error) {
-      throw error;
+      const errorMessage =
+        error.response?.data?.message || "Update Product failed";
+      throw new Error(errorMessage);
     }
   }
 
@@ -134,7 +153,7 @@ export class ProductService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.delete(
-        `http://localhost:8000/api/v1/products/productDelete/${id}`,
+        `${conf.backendUrl}/api/v1/products/productDelete/${id}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -143,7 +162,9 @@ export class ProductService {
       );
       return response;
     } catch (error) {
-      throw error;
+      const errorMessage =
+        error.response?.data?.message || "Deleting the product failed";
+      throw new Error(errorMessage);
     }
   }
 
@@ -151,7 +172,7 @@ export class ProductService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.delete(
-        `http://localhost:8000/api/v1/products/productReviewDelete/${productId}/review/${reviewId}`,
+        `${conf.backendUrl}/api/v1/products/productReviewDelete/${productId}/review/${reviewId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -159,7 +180,9 @@ export class ProductService {
         }
       );
     } catch (error) {
-      throw error;
+      const errorMessage =
+        error.response?.data?.message || "Deleting the product review failed";
+      throw new Error(errorMessage);
     }
   }
 }

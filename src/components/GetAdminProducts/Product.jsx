@@ -19,6 +19,7 @@ const AdminProduct = () => {
     category: "",
     stock: "",
   });
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -34,7 +35,7 @@ const AdminProduct = () => {
           stock: data.stock,
         });
       } catch (error) {
-        console.error("Failed to fetch product data", error);
+        setError(error.message || "Failed to fetch product data");
       }
     };
 
@@ -60,7 +61,7 @@ const AdminProduct = () => {
           navigate("/getAdminProducts");
         }
       } catch (error) {
-        console.log("Failed to delete product", error);
+        setError(error.message);
       }
     } else {
       return;
@@ -73,7 +74,7 @@ const AdminProduct = () => {
       setProduct(response);
       navigate(`/adminproduct/${id}`);
     } catch (error) {
-      console.log("Failed to save product data", error);
+      setError(error.message || "Failed to save product data");
     }
   };
 
@@ -134,7 +135,9 @@ const AdminProduct = () => {
                       <p>
                         Stock:{" "}
                         {product.stock === 0 ? (
-                          <span className="text-logout-color">Out Of Stock</span>
+                          <span className="text-logout-color">
+                            Out Of Stock
+                          </span>
                         ) : (
                           product.stock
                         )}
@@ -151,6 +154,11 @@ const AdminProduct = () => {
               </div>
             </div>
             <hr className="border-t-2 mt-2" />
+            {error && (
+              <span className="text-logout-color text-base text-center tracking-wide font-medium">
+                {error}
+              </span>
+            )}
             {/* Product details */}
             <div className="flex flex-col mt-4 p-2 md:p-5">
               <div className="mb-4 text-xl font-bold text-nav-color">

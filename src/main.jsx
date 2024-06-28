@@ -29,6 +29,7 @@ import {
   AdminDashboard,
   OrderHistory,
   AdminCustomers,
+  NotFoundd,
 } from "./components/index.js";
 
 const router = createBrowserRouter([
@@ -143,6 +144,10 @@ const router = createBrowserRouter([
             <AdminCustomers />
           </AuthLayout>
         ),
+      },
+      {
+        path: "*",
+        element: <NotFoundd />,
       },
     ],
   },

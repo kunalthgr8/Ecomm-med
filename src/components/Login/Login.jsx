@@ -41,18 +41,29 @@ const Login = () => {
       <div className="border border-nav-white mt-2 mb-2"></div>
       <div className=" w-4/5 h-full m-auto mt-10 md:w-1/2 flex flex-col justify-evenly gap-7 md:m-5">
         <h2 className="text-nav-white mt-1 sm:mt-2 text-2xl md:text-2xl sm:text-2xl font-bold tracking-widest">
-          LOGIN {error && <span className="text-red-500">{error}</span>}
+          LOGIN{" "}
+          <p>
+            {error && (
+              <span className="text-logout-color text-xs tracking-wide font-medium">
+                {error}
+              </span>
+            )}
+          </p>
         </h2>
         <form onSubmit={handleLogin} className="p-2 flex flex-col gap-3">
           <Input
             type="email"
             placeholder="Email"
-            onChange={(e) => setData((prev) => ({ ...prev, email: e.target.value }))}
+            onChange={(e) =>
+              setData((prev) => ({ ...prev, email: e.target.value }))
+            }
           />
           <Input
             type="password"
             name="password"
-            onChange={(e) => setData((prev) => ({ ...prev, password: e.target.value }))}
+            onChange={(e) =>
+              setData((prev) => ({ ...prev, password: e.target.value }))
+            }
             placeholder="Password"
           />
           <Button

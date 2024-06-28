@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Input, Button } from "../index";
 import authService from "../../appwrite/auth.js";
 import { MdModeEdit } from "react-icons/md";
-import { useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
 
 function ChangePassword() {
   const navigate = useNavigate();
@@ -14,34 +12,31 @@ function ChangePassword() {
     confirmPassword: "",
   });
   const [error, setError] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
   const handleSubmit = async () => {
+    setError("");
+
     if (
       data.oldPassword === "" ||
       data.newPassword === "" ||
       data.confirmPassword === ""
     ) {
-      setTimeout(() => {
-        setError("Please fill all the fields");
-      }, 1000);
-      setError("");
-      return;
+      return setError("Please fill all the fields");
     }
+
     if (data.newPassword !== data.confirmPassword) {
-      setTimeout(() => {
-        setError("Password does not match");
-      }, 1000);
-      setError("");
-      return;
+      return setError("Password does not match");
     }
-    const resp = await authService.changePassword(data);
-    if (resp.data.statusCode === 200) {
+
+    try {
+      setLoading(true);
+      await authService.changePassword(data);
       navigate("/user");
-    } else {
-      setTimeout(() => {
-        setError("Something went wrong! Please try again.");
-      }, 1000);
-      setError("");
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,7 +51,7 @@ function ChangePassword() {
                 <h1 className="text-sm text-heading-color font-semibold">
                   Change Password
                 </h1>
-                <h1 className="text-logout-color">{error}</h1>
+                {error && <h1 className="text-logout-color">{error}</h1>}
                 <div className="flex flex-col p-3 gap-2">
                   <div className="flex flex-col pb-3 gap-1">
                     <p className="text-sm font-medium text-button-color">
@@ -65,6 +60,7 @@ function ChangePassword() {
                     <Input
                       type="password"
                       placeholder="Old Password"
+                      value={data.oldPassword}
                       onChange={(e) =>
                         setData((prev) => ({
                           ...prev,
@@ -80,6 +76,7 @@ function ChangePassword() {
                     <Input
                       type="password"
                       placeholder="New Password"
+                      value={data.newPassword}
                       onChange={(e) =>
                         setData((prev) => ({
                           ...prev,
@@ -95,6 +92,7 @@ function ChangePassword() {
                     <Input
                       type="password"
                       placeholder="Confirm Password"
+                      value={data.confirmPassword}
                       onChange={(e) =>
                         setData((prev) => ({
                           ...prev,
@@ -111,8 +109,9 @@ function ChangePassword() {
                 width="flex justify-end"
                 className="bg-button-color flex justify-center self-center gap-1 px-4 text-center rounded-lg text-nav-white"
                 onClick={handleSubmit}
+                disabled={loading}
               >
-                Change Password
+                {loading ? "Changing..." : "Change Password"}
                 <MdModeEdit className="flex justify-center self-center" />
               </Button>
             </div>

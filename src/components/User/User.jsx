@@ -15,6 +15,7 @@ function User() {
   const isAdmin = userData?.role === "admin";
   const [editAbleUser, setEditAbleUser] = React.useState(false);
   const [editAbleLocationUser, setEditAbleLocationUser] = React.useState(false);
+  const [error, setError] = React.useState("");
   const [data, setData] = React.useState({
     email: userData?.email || "No Email Found",
     phoneNumber: userData?.phoneNumber || "No Number Found",
@@ -35,7 +36,7 @@ function User() {
       dataLocation.district.trim() === "" ||
       dataLocation.city.trim() === ""
     ) {
-      alert("Please fill all the fields");
+      setError("Please fill all the fields");
       return;
     }
     try {
@@ -49,8 +50,7 @@ function User() {
         }
       }
     } catch (error) {
-      console.log("User :: saveButtonHandler :: error", error);
-      alert("Error while saving data");
+      setError(error.message);
     }
     // Save data logic here
   };
@@ -62,7 +62,7 @@ function User() {
       data.gender === "" ||
       data.phoneNumber === ""
     ) {
-      alert("Please fill all the fields");
+      setError("Please fill all the fields");
       return;
     }
     try {
@@ -77,8 +77,7 @@ function User() {
         }
       }
     } catch (error) {
-      console.log("User :: saveButtonHandler :: error", error);
-      alert("Error while saving data");
+      setError(error.message);
     }
     // Save data logic here
   };
@@ -100,13 +99,13 @@ function User() {
   };
   const makeaSeller = async () => {
     try {
-      const response  = await authService.updateUserToSeller();
-      dispatch(login(response.data.data))
+      const response = await authService.updateUserToSeller();
+      dispatch(login(response.data.data));
       navigate("/");
     } catch (error) {
-      console.log("User :: makeaSeller :: error", error);
+      setError(error.message);
     }
-  }
+  };
 
   const capitalizeName = (name) =>
     name
@@ -128,17 +127,33 @@ function User() {
               <h1 className="font-semibold text-nav-color text-base sm:text-xl">
                 {fullname}
               </h1>
-              <p className="text-black-heading text-xs sm:text-sm italic">{data.email}</p>
+              <p className="text-black-heading text-xs sm:text-sm italic">
+                {data.email}
+              </p>
               <p
                 className="text-nav-color font-semibold cursor-pointer text-xs sm:text-sm italic"
                 onClick={() => navigate("/changePassword")}
               >
                 Change Password
               </p>
-             { !isAdmin && <p className="text-logout-color text-xs sm:text-sm cursor-pointer italic font-medium" onClick={makeaSeller}>Become a Seller</p>}
+              {!isAdmin && (
+                <p
+                  className="text-logout-color text-xs sm:text-sm cursor-pointer italic font-medium"
+                  onClick={makeaSeller}
+                >
+                  Become a Seller
+                </p>
+              )}
             </div>
           </div>
           <div className="flex flex-col gap-5 w-full md:w-3/4 xl:w-2/3">
+            { error && <p className="flex flex-col w-full xl:w-4/5 justify-center bg-nav-white rounded-lg p-3">
+              {error && (
+                <span className="text-logout-color text-base text-center tracking-wide font-medium">
+                  {error}
+                </span>
+              )}
+            </p>}
             <div className="flex flex-col w-full xl:w-4/5 justify-center bg-nav-white rounded-lg p-8 pb-4">
               <div className="w-full flex flex-row">
                 <div className="flex flex-col w-1/2 gap-3">

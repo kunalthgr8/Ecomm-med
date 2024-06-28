@@ -32,7 +32,9 @@ import AdminProduct from "./GetAdminProducts/Product.jsx";
 import AdminDashboard from "./AdminDashboard/AdminDashboard.jsx";
 import OrderHistory from "./Cart/OrderHistory.jsx";
 import AdminCustomers from "./AdminCustomers/AdminCustomers.jsx";
+import NotFoundd from "./NotFoundd/NotFoundd.jsx";
 export {
+  NotFoundd,
   AdminCustomers,
   OrderHistory,
   AdminDashboard,

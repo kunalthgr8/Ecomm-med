@@ -10,7 +10,7 @@ export class AuthService {
   async createAccount({ fullname, email, password, phoneNumber }) {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/register",
+        `${conf.backendUrl}/api/v1/users/register`,
         {
           fullname,
           email,
@@ -22,18 +22,18 @@ export class AuthService {
         // If registration is successful, log in the user
         const rsp2 = await this.login({ email, password });
         return rsp2;
-      } else {
-        throw new Error("User registration failed");
       }
     } catch (error) {
-      throw error;
+      const errorMessage =
+        error.response?.data?.message || "Registration failed";
+      throw new Error(errorMessage);
     }
   }
 
   async login({ email, password }) {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/login",
+        `${conf.backendUrl}/api/v1/users/login`,
         {
           email,
           password,
@@ -44,25 +44,23 @@ export class AuthService {
       Cookies.set("refreshToken", refreshToken);
       return response;
     } catch (error) {
-      console.log("AuthService :: login :: error", error);
-      throw error;
+      const errorMessage = error.response?.data?.message || "Login failed";
+      throw new Error(errorMessage);
     }
   }
 
   async getCurrentUser() {
     try {
       const accessToken = Cookies.get("accessToken");
-      const response = await axios.get(
-        "http://localhost:8000/api/v1/users/me",
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      const response = await axios.get(`${conf.backendUrl}/api/v1/users/me`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       return response;
     } catch (error) {
-      console.log("AuthService :: getCurrentUser :: error", error);
+      const errorMessage = error.response?.data?.message || "Login failed";
+      throw new Error(errorMessage);
     }
     return null;
   }
@@ -71,7 +69,7 @@ export class AuthService {
     try {
       const refreshToken = Cookies.get("refreshToken");
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/logout",
+        `${conf.backendUrl}/api/v1/users/logout`,
         {},
         {
           headers: {
@@ -84,7 +82,8 @@ export class AuthService {
       Cookies.remove("refreshToken");
       return response;
     } catch (error) {
-      console.log("AuthService :: logout :: error", error);
+      const errorMessage = error.response?.data?.message || "Logout failed";
+      throw new Error(errorMessage);
     }
   }
 
@@ -92,7 +91,7 @@ export class AuthService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/changePassword",
+        `${conf.backendUrl}/api/v1/users/changePassword`,
         {
           oldPassword,
           newPassword,
@@ -105,7 +104,9 @@ export class AuthService {
       );
       return response;
     } catch (error) {
-      console.log("AuthService :: changePassword :: error", error);
+      const errorMessage =
+        error.response?.data?.message || "Changing Password failed";
+      throw new Error(errorMessage);
     }
   }
 
@@ -113,7 +114,7 @@ export class AuthService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.put(
-        "http://localhost:8000/api/v1/users/updateUserDetails",
+        `${conf.backendUrl}/api/v1/users/updateUserDetails`,
         {
           fullname,
           email,
@@ -128,7 +129,9 @@ export class AuthService {
       );
       return response;
     } catch (error) {
-      console.log("AuthService :: changeDetails :: error", error);
+      const errorMessage =
+        error.response?.data?.message || "Changing Password failed";
+      throw new Error(errorMessage);
     }
   }
 
@@ -136,7 +139,7 @@ export class AuthService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.put(
-        "http://localhost:8000/api/v1/users/updateLocationDetails",
+        `${conf.backendUrl}/api/v1/users/updateLocationDetails`,
         {
           address,
           city,
@@ -151,18 +154,17 @@ export class AuthService {
       );
       return response;
     } catch (error) {
-      console.log(
-        "AuthService :: updateUserLocationDetails :: error",
-        error
-      );
+      const errorMessage =
+        error.response?.data?.message || "Changing Password failed";
+      throw new Error(errorMessage);
     }
   }
 
-  async updateUserToSeller(){
+  async updateUserToSeller() {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.put(
-        "http://localhost:8000/api/v1/users/updateToSeller",
+        `${conf.backendUrl}/api/v1/users/updateToSeller`,
         {},
         {
           headers: {
@@ -172,9 +174,10 @@ export class AuthService {
       );
       return response;
     } catch (error) {
-      console.log("AuthService :: updateUserToSeller :: error", error);
+      const errorMessage =
+        error.response?.data?.message || "Changing Password failed";
+      throw new Error(errorMessage);
     }
-  
   }
 }
 

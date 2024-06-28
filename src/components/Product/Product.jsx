@@ -22,6 +22,7 @@ const Product = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.userData);
+  console.log(user);
   const [reviewDataByUser, setReviewDataByUser] = useState({
     comment: "",
     rating: null,
@@ -31,6 +32,7 @@ const Product = () => {
   const fetchProductData = useCallback(async () => {
     try {
       const data = await productService.getProductById(id);
+      console.log(data)
       const reviewData = await productService.getProductByReviewId(id);
       setProduct(data);
       setReviews(reviewData.slice(-2));
@@ -292,7 +294,7 @@ const Product = () => {
                       <div className="flex justify-between">
                         {review.comment}
                         {review.user}
-                        {review.user === user._id && (
+                        { isAuthenticated && review.user === user._id && (
                           <p
                             onClick={() =>
                               deleteReview(review._id, product._id)

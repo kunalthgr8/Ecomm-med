@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import conf from "../conf/conf.js";
 
 export class OrderService {
   constructor() {}
@@ -8,7 +9,7 @@ export class OrderService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.post(
-        "http://localhost:8000/api/v1/orders/newOrder",
+        `${conf.backendUrl}/api/v1/orders/newOrder`,
         {
           orderItems: data.orderItems,
           paymentInfo: data.paymentInfo,
@@ -35,7 +36,7 @@ export class OrderService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.get(
-        "http://localhost:8000/api/v1/orders/myOrders",
+        `${conf.backendUrl}/api/v1/orders/myOrders`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -50,10 +51,10 @@ export class OrderService {
 
   async payment(data) {
     try {
-      console.log("Data in Order.js",data);
+      console.log("Data in Order.js", data);
       const accessToken = Cookies.get("accessToken");
       const response = await axios.post(
-        "http://localhost:8000/api/v1/orders/payment",
+        `${conf.backendUrl}/api/v1/orders/payment`,
         {
           orderItems: data,
         },
@@ -63,7 +64,7 @@ export class OrderService {
           },
         }
       );
-      console.log("Response in Order.js",response)
+      console.log("Response in Order.js", response);
       if (response.data.url) {
         window.location.href = response.data.url;
       } else {

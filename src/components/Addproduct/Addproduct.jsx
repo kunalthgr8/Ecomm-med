@@ -12,8 +12,9 @@ function AddProduct() {
     category: null,
     stock: null,
   });
+  const [error, setError] = useState(null);
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,21 +33,32 @@ function AddProduct() {
       data.category === null ||
       data.stock === null
     ) {
-      alert("Please fill all the fields");
+      setError("Please fill all the fields");
     }
     try {
       const response = await productService.addProduct(data);
-      if(response.name === data.name){
+      if (response.name === data.name) {
         navigate("/getAdminProducts");
       }
     } catch (error) {
-      throw error;
+      setError(error.message);
     }
   };
 
   return (
     <div className="w-4/5 flex flex-col mt-5 gap-5">
-      <h1 className="font-bold text-xl tracking-wider text-nav-color">Add Products</h1>
+      <h1 className="font-bold text-xl tracking-wider text-nav-color">
+        Add Products
+      </h1>
+      {error && (
+        <p className="flex flex-col w-full lg:w-4/5 mt-5 ml-2 md:ml-5 lg:ml-10 justify-center bg-nav-white rounded-lg p-2 lg:p-4 pb-2">
+          {error && (
+            <span className="text-logout-color text-base text-center tracking-wide font-medium">
+              {error}
+            </span>
+          )}
+        </p>
+      )}
       <div className="flex flex-col w-full lg:w-4/5 mt-5 ml-2 md:ml-5 lg:ml-10 justify-center bg-nav-white rounded-lg p-4 lg:p-8 pb-4">
         <div className="w-full flex flex-col">
           <div className="flex flex-col w-full gap-3 mb-5">
@@ -60,6 +72,7 @@ function AddProduct() {
                 </p>
                 <Input
                   type="text"
+                  required
                   name="name"
                   value={data.name}
                   placeholder="Name"
@@ -78,6 +91,7 @@ function AddProduct() {
                   placeholder="Product Price"
                   className="text-sm font-medium text-heading-color border-b border-text-heading"
                   onChange={handleChange}
+                  required
                 />
               </div>
               <div className="flex flex-col pb-3 gap-1">
@@ -91,6 +105,7 @@ function AddProduct() {
                   placeholder="Image URL"
                   className="text-sm font-medium text-heading-color border-b border-text-heading"
                   onChange={handleChange}
+                  required
                 />
               </div>
               <div className="flex flex-col pb-3 gap-1">
@@ -104,6 +119,7 @@ function AddProduct() {
                   placeholder="Product Description"
                   className="text-sm font-medium text-heading-color border-b border-text-heading"
                   onChange={handleChange}
+                  required
                 />
               </div>
               <div className="flex flex-col pb-3 gap-1">
@@ -117,6 +133,7 @@ function AddProduct() {
                   placeholder="Product Category"
                   className="text-sm font-medium text-heading-color border-b border-text-heading"
                   onChange={handleChange}
+                  required
                 />
               </div>
               <div className="flex flex-col pb-3 gap-1">
@@ -130,6 +147,7 @@ function AddProduct() {
                   placeholder="Product Stock"
                   className="text-sm font-medium text-heading-color border-b border-text-heading"
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
