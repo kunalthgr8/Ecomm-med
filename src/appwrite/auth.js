@@ -2,7 +2,7 @@ import conf from "../conf/conf.js";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const bckndURL= "https://ecomm-med-bcknd.vercel.app";
+const bckndURL= "https://ecomm-med-bcknd.vercel.app/";
 export class AuthService {
   constructor() {
     // Initialization logic can be added here if needed
