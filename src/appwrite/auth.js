@@ -2,15 +2,17 @@ import conf from "../conf/conf.js";
 import axios from "axios";
 import Cookies from "js-cookie";
 
+const bckndURL= "https://ecomm-med-bcknd.vercel.app";
 export class AuthService {
   constructor() {
     // Initialization logic can be added here if needed
   }
 
+
   async createAccount({ fullname, email, password, phoneNumber }) {
     try {
       const response = await axios.post(
-        `${conf.backendUrl}/api/v1/users/register`,
+        `${bckndURL}/api/v1/users/register`,
         {
           fullname,
           email,
@@ -33,7 +35,7 @@ export class AuthService {
   async login({ email, password }) {
     try {
       const response = await axios.post(
-        `${conf.backendUrl}/api/v1/users/login`,
+        `${bckndURL}/api/v1/users/login`,
         {
           email,
           password,
@@ -52,7 +54,7 @@ export class AuthService {
   async getCurrentUser() {
     try {
       const accessToken = Cookies.get("accessToken");
-      const response = await axios.get(`${conf.backendUrl}/api/v1/users/me`, {
+      const response = await axios.get(`${bckndURL}/api/v1/users/me`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -69,7 +71,7 @@ export class AuthService {
     try {
       const refreshToken = Cookies.get("refreshToken");
       const response = await axios.post(
-        `${conf.backendUrl}/api/v1/users/logout`,
+        `${bckndURL}/api/v1/users/logout`,
         {},
         {
           headers: {
@@ -91,7 +93,7 @@ export class AuthService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.post(
-        `${conf.backendUrl}/api/v1/users/changePassword`,
+        `${bckndURL}/api/v1/users/changePassword`,
         {
           oldPassword,
           newPassword,
@@ -114,7 +116,7 @@ export class AuthService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.put(
-        `${conf.backendUrl}/api/v1/users/updateUserDetails`,
+        `${bckndURL}/api/v1/users/updateUserDetails`,
         {
           fullname,
           email,
@@ -139,7 +141,7 @@ export class AuthService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.put(
-        `${conf.backendUrl}/api/v1/users/updateLocationDetails`,
+        `${bckndURL}/api/v1/users/updateLocationDetails`,
         {
           address,
           city,
@@ -164,7 +166,7 @@ export class AuthService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.put(
-        `${conf.backendUrl}/api/v1/users/updateToSeller`,
+        `${bckndURL}/api/v1/users/updateToSeller`,
         {},
         {
           headers: {

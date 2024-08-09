@@ -2,6 +2,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import conf from "../conf/conf.js";
 
+
+const bckndURL= "https://ecomm-med-bcknd.vercel.app";
 export class OrderService {
   constructor() {}
 
@@ -9,7 +11,7 @@ export class OrderService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.post(
-        `${conf.backendUrl}/api/v1/orders/newOrder`,
+        `${bckndURL}/api/v1/orders/newOrder`,
         {
           orderItems: data.orderItems,
           paymentInfo: data.paymentInfo,
@@ -36,7 +38,7 @@ export class OrderService {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.get(
-        `${conf.backendUrl}/api/v1/orders/myOrders`,
+        `${bckndURL}/api/v1/orders/myOrders`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -54,7 +56,7 @@ export class OrderService {
       console.log("Data in Order.js", data);
       const accessToken = Cookies.get("accessToken");
       const response = await axios.post(
-        `${conf.backendUrl}/api/v1/orders/payment`,
+        `${bckndURL}/api/v1/orders/payment`,
         {
           orderItems: data,
         },
